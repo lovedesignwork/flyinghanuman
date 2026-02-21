@@ -21,15 +21,15 @@ const timeSlots = [
 ];
 
 const allBookablePackages = packages.filter(pkg => 
-  ['world-a-plus', 'world-b-plus', 'world-c-plus', 'world-d-plus', 'zipline-32', 'zipline-18', 'zipline-10', 'roller-zipline', 'skywalk', 'slingshot'].includes(pkg.id)
+  ['fh1', 'fh2', 'fh3-canopy', 'canopy', 'sd1-fh3-hanuman-world', 'sd2-fh3-three-monkeys', 'sd3-fh3-atv', 'sd4-fh3-elephant', 'sd5-fh3-atv-elephant'].includes(pkg.id)
 );
 
 // Packages that have flexible/open time (no specific time slot needed)
 // These can be done anytime between 8AM-6PM on the selected day
-const openTimePackages = ['roller-zipline', 'skywalk', 'slingshot', 'world-d-plus'];
+const openTimePackages = ['canopy'];
 
 const addonPackages = packages.filter(pkg => 
-  ['roller-zipline', 'skywalk', 'slingshot', 'luge'].includes(pkg.id)
+  ['canopy'].includes(pkg.id)
 );
 
 // Promotional add-ons
