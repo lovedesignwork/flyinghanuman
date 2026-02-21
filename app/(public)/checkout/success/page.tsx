@@ -46,7 +46,7 @@ interface BookingData {
 function SuccessContent() {
   const searchParams = useSearchParams();
   const bookingRef = searchParams.get('booking_ref');
-  const sessionId = searchParams.get('session_id');
+  const paymentIntent = searchParams.get('payment_intent');
   
   const [booking, setBooking] = useState<BookingData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -54,14 +54,14 @@ function SuccessContent() {
 
   useEffect(() => {
     const fetchBookingDetails = async () => {
-      if (!bookingRef || !sessionId) {
+      if (!bookingRef || !paymentIntent) {
         setError('Invalid booking link');
         setLoading(false);
         return;
       }
       
       try {
-        const response = await fetch(`/api/bookings/${bookingRef}?session_id=${sessionId}`);
+        const response = await fetch(`/api/bookings/${bookingRef}?payment_intent=${paymentIntent}`);
         if (response.ok) {
           const data = await response.json();
           setBooking(data);
@@ -78,7 +78,7 @@ function SuccessContent() {
     };
 
     fetchBookingDetails();
-  }, [bookingRef, sessionId]);
+  }, [bookingRef, paymentIntent]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('th-TH', {

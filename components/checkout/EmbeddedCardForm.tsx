@@ -84,7 +84,7 @@ export default function EmbeddedCardForm({
         setErrorMessage(error.message || 'Payment failed');
         setIsProcessing(false);
       } else if (paymentIntent?.status === 'succeeded') {
-        window.location.href = `/checkout/success?booking_ref=${bookingRef}`;
+        window.location.href = `/checkout/success?booking_ref=${bookingRef}&payment_intent=${paymentIntent.id}`;
       } else {
         window.location.href = `/checkout/success?booking_ref=${bookingRef}&payment_intent=${paymentIntent?.id}`;
       }
