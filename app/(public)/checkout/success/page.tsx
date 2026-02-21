@@ -4,13 +4,12 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { CheckCircle, Calendar, Clock, Users, MapPin, Mail, Phone, Package, Car, UserMinus } from 'lucide-react';
+import { CheckCircle, Calendar, Clock, Users, MapPin, Mail, Phone, Package, Car, UserMinus, Hotel } from 'lucide-react';
 
 interface BookingAddon {
   id: string;
   quantity: number;
   unit_price: number;
-  total_price: number;
   promo_addons: {
     id: string;
     name: string;
@@ -94,6 +93,7 @@ function SuccessContent() {
   }, [bookingRef, paymentIntent]);
 
   const formatCurrency = (amount: number) => {
+    if (isNaN(amount) || amount === null || amount === undefined) return '฿0';
     return new Intl.NumberFormat('th-TH', {
       style: 'currency',
       currency: 'THB',
@@ -108,28 +108,21 @@ function SuccessContent() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-2xl shadow-xl p-8 text-center"
+            className="bg-white rounded-2xl shadow-xl p-6 text-center"
           >
-            <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Mail className="w-7 h-7 text-red-500" />
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <Mail className="w-6 h-6 text-red-500" />
             </div>
-            <h1 className="text-xl font-bold text-slate-800 mb-2">Access Denied</h1>
-            <p className="text-sm text-slate-600 mb-6">{error}</p>
-            <p className="text-xs text-slate-500 mb-6">
-              If you made a booking, please check your email for the confirmation with the correct link, 
-              or contact our support team for assistance.
-            </p>
+            <h1 className="text-lg font-bold text-slate-800 mb-2">Access Denied</h1>
+            <p className="text-sm text-slate-600 mb-4">{error}</p>
             <Link href="/" className="block">
-              <button className="w-full px-5 py-3 bg-[#f2e421] hover:bg-[#d4c91e] text-black font-semibold rounded-xl transition-colors text-sm">
+              <button className="w-full px-4 py-2.5 bg-[#f2e421] hover:bg-[#d4c91e] text-black font-semibold rounded-xl transition-colors text-sm">
                 Back to Home
               </button>
             </Link>
-            <div className="mt-4 pt-4 border-t border-slate-100">
-              <p className="text-[10px] text-slate-500 mb-2">Need help?</p>
-              <a href="mailto:support@flyinghanuman.com" className="text-xs text-[#1a1a1a] hover:underline">
-                support@flyinghanuman.com
-              </a>
-            </div>
+            <p className="mt-3 text-xs text-slate-500">
+              Need help? <a href="mailto:support@flyinghanuman.com" className="text-[#1a1a1a] underline">support@flyinghanuman.com</a>
+            </p>
           </motion.div>
         </div>
       </main>
@@ -155,151 +148,128 @@ function SuccessContent() {
   const customer = getCustomer();
   const transport = getTransport();
   const hasTransfer = transport && transport.transport_type !== 'self_arrange';
+  const nonPlayers = transport?.non_players || 0;
 
   return (
     <main className="min-h-screen bg-[#1a1a1a]">
-      <div className="max-w-2xl mx-auto px-4 py-8 md:py-12">
+      <div className="max-w-md mx-auto px-4 py-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.3 }}
           className="bg-white rounded-2xl shadow-xl overflow-hidden"
         >
-          {/* Header - Flying Hanuman Yellow Brand */}
-          <div className="bg-gradient-to-r from-[#1a1a1a] to-[#2d2d2d] px-5 py-6 text-center">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-[#1a1a1a] to-[#2d2d2d] px-4 py-5 text-center">
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-              className="w-14 h-14 bg-[#f2e421] rounded-full flex items-center justify-center mx-auto mb-3"
+              className="w-12 h-12 bg-[#f2e421] rounded-full flex items-center justify-center mx-auto mb-2"
             >
-              <CheckCircle className="w-8 h-8 text-[#1a1a1a]" />
+              <CheckCircle className="w-7 h-7 text-[#1a1a1a]" />
             </motion.div>
-            <h1 className="text-xl md:text-2xl font-bold text-white mb-1 font-[family-name:var(--font-trade-winds)]">
+            <h1 className="text-lg font-bold text-white font-[family-name:var(--font-trade-winds)]">
               BOOKING CONFIRMED!
             </h1>
-            {customer ? (
-              <p className="text-white/80 text-sm">
-                Thank You <span className="font-semibold text-[#f2e421]">{customer.first_name}</span> for your booking with Flying Hanuman!
+            {customer && (
+              <p className="text-white/80 text-xs mt-1">
+                Thank You <span className="font-semibold text-[#f2e421]">{customer.first_name}</span> for your booking!
               </p>
-            ) : (
-              <p className="text-white/80 text-sm">Thank you for booking with Flying Hanuman!</p>
             )}
           </div>
 
-          <div className="p-5">
-            {/* Booking Reference & Email Confirmation */}
-            <div className="bg-[#f2e421]/10 border border-[#f2e421]/20 rounded-xl p-4 mb-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-slate-500 uppercase tracking-wide">Booking Reference</span>
-                <span className="text-lg font-bold text-[#1a1a1a]">{bookingRef || 'Loading...'}</span>
+          <div className="p-4">
+            {/* Booking Reference */}
+            <div className="bg-[#f2e421]/10 border border-[#f2e421]/30 rounded-lg p-3 mb-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] text-slate-500 uppercase">Booking Ref</span>
+                <span className="text-base font-bold text-[#1a1a1a]">{bookingRef}</span>
               </div>
               {customer?.email && (
-                <p className="text-xs text-slate-600">
-                  We&apos;ve sent you a confirmation email to <span className="font-semibold text-[#1a1a1a]">{customer.email}</span> with details below.
+                <p className="text-[10px] text-slate-500 mt-1">
+                  Confirmation sent to <span className="font-medium text-slate-700">{customer.email}</span>
                 </p>
               )}
             </div>
 
             {!loading && booking && (
               <>
-                {/* Booking Details - Compact Grid */}
-                <div className="mb-4">
-                  <h3 className="text-sm font-semibold text-slate-700 mb-2 uppercase tracking-wide">Booking Details</h3>
-                  <div className="grid grid-cols-2 gap-2">
-                    {/* Package */}
-                    <div className="col-span-2 flex items-center gap-2 p-3 bg-[#f2e421]/10 rounded-lg">
-                      <Package className="w-4 h-4 text-[#1a1a1a]" />
-                      <div>
-                        <p className="text-[10px] text-slate-500 uppercase">Package</p>
-                        <p className="text-sm font-semibold text-slate-800">{booking.packages?.name || 'N/A'}</p>
-                      </div>
-                    </div>
-
-                    {/* Date */}
-                    <div className="flex items-center gap-2 p-3 bg-slate-50 rounded-lg">
-                      <Calendar className="w-4 h-4 text-[#1a1a1a]" />
-                      <div>
-                        <p className="text-[10px] text-slate-500 uppercase">Date</p>
-                        <p className="text-xs font-medium text-slate-800">
-                          {new Date(booking.activity_date).toLocaleDateString('en-US', {
-                            weekday: 'short',
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric',
-                          })}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    {/* Time */}
-                    <div className="flex items-center gap-2 p-3 bg-slate-50 rounded-lg">
-                      <Clock className="w-4 h-4 text-[#1a1a1a]" />
-                      <div>
-                        <p className="text-[10px] text-slate-500 uppercase">Time</p>
-                        <p className="text-xs font-medium text-slate-800">
-                          {booking.time_slot === 'flexible' ? '8AM - 6PM' : booking.time_slot}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    {/* Players */}
-                    <div className="flex items-center gap-2 p-3 bg-slate-50 rounded-lg">
-                      <Users className="w-4 h-4 text-[#1a1a1a]" />
-                      <div>
-                        <p className="text-[10px] text-slate-500 uppercase">Players</p>
-                        <p className="text-xs font-medium text-slate-800">{booking.guest_count} person(s)</p>
-                      </div>
-                    </div>
-
-                    {/* Non-Playing Guests */}
-                    {transport && transport.non_players > 0 && (
-                      <div className="flex items-center gap-2 p-3 bg-slate-50 rounded-lg">
-                        <UserMinus className="w-4 h-4 text-[#1a1a1a]" />
-                        <div>
-                          <p className="text-[10px] text-slate-500 uppercase">Non-Players</p>
-                          <p className="text-xs font-medium text-slate-800">{transport.non_players} person(s)</p>
-                        </div>
-                      </div>
-                    )}
+                {/* Booking Details */}
+                <div className="mb-3">
+                  <h3 className="text-[10px] font-semibold text-slate-500 mb-2 uppercase tracking-wide">Booking Details</h3>
+                  
+                  {/* Package */}
+                  <div className="flex items-center gap-2 p-2 bg-[#f2e421]/10 rounded-lg mb-2">
+                    <Package className="w-4 h-4 text-[#1a1a1a]" />
+                    <span className="text-sm font-semibold text-slate-800">{booking.packages?.name || 'N/A'}</span>
                   </div>
+
+                  {/* Date, Time, Players in a row */}
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div className="p-2 bg-slate-50 rounded-lg">
+                      <Calendar className="w-3.5 h-3.5 text-slate-400 mx-auto mb-1" />
+                      <p className="text-[10px] text-slate-500">Date</p>
+                      <p className="text-xs font-medium text-slate-800">
+                        {new Date(booking.activity_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </p>
+                    </div>
+                    <div className="p-2 bg-slate-50 rounded-lg">
+                      <Clock className="w-3.5 h-3.5 text-slate-400 mx-auto mb-1" />
+                      <p className="text-[10px] text-slate-500">Time</p>
+                      <p className="text-xs font-medium text-slate-800">
+                        {booking.time_slot === 'flexible' ? 'Flexible' : booking.time_slot}
+                      </p>
+                    </div>
+                    <div className="p-2 bg-slate-50 rounded-lg">
+                      <Users className="w-3.5 h-3.5 text-slate-400 mx-auto mb-1" />
+                      <p className="text-[10px] text-slate-500">Players</p>
+                      <p className="text-xs font-medium text-slate-800">{booking.guest_count}</p>
+                    </div>
+                  </div>
+
+                  {/* Non-Players */}
+                  {nonPlayers > 0 && (
+                    <div className="flex items-center justify-between p-2 bg-slate-50 rounded-lg mt-2">
+                      <div className="flex items-center gap-2">
+                        <UserMinus className="w-3.5 h-3.5 text-slate-400" />
+                        <span className="text-xs text-slate-600">Non-Players</span>
+                      </div>
+                      <span className="text-xs font-medium text-slate-800">{nonPlayers} person(s)</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Add-ons */}
                 {booking.booking_addons && booking.booking_addons.length > 0 && (
-                  <div className="mb-4">
-                    <h3 className="text-sm font-semibold text-slate-700 mb-2 uppercase tracking-wide">Add-ons & Upgrades</h3>
-                    <div className="bg-green-50 border border-green-100 rounded-lg p-3">
-                      <ul className="space-y-1">
-                        {booking.booking_addons.map((addon, index) => (
-                          <li key={index} className="flex items-center justify-between text-xs">
-                            <span className="text-slate-700">
-                              {addon.promo_addons?.name || 'Add-on'} × {addon.quantity}
-                            </span>
-                            <span className="font-medium text-green-700">{formatCurrency(addon.total_price)}</span>
-                          </li>
-                        ))}
-                      </ul>
+                  <div className="mb-3">
+                    <h3 className="text-[10px] font-semibold text-slate-500 mb-2 uppercase tracking-wide">Add-ons</h3>
+                    <div className="bg-green-50 border border-green-100 rounded-lg p-2">
+                      {booking.booking_addons.map((addon, index) => (
+                        <div key={index} className="flex items-center justify-between text-xs py-1">
+                          <span className="text-slate-700">{addon.promo_addons?.name || 'Add-on'} × {addon.quantity}</span>
+                          <span className="font-medium text-green-700">{formatCurrency((addon.unit_price || 0) * (addon.quantity || 1))}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}
 
                 {/* Transport */}
-                {transport && transport.transport_type !== 'self_arrange' && (
-                  <div className="mb-4">
-                    <h3 className="text-sm font-semibold text-slate-700 mb-2 uppercase tracking-wide">Transport</h3>
-                    <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-100 rounded-lg">
-                      <Car className="w-4 h-4 text-blue-600 mt-0.5" />
+                {hasTransfer && (
+                  <div className="mb-3">
+                    <h3 className="text-[10px] font-semibold text-slate-500 mb-2 uppercase tracking-wide">Transport</h3>
+                    <div className="flex items-center gap-2 p-2 bg-blue-50 border border-blue-100 rounded-lg">
+                      <Car className="w-4 h-4 text-blue-600" />
                       <div>
-                        <p className="text-xs font-medium text-blue-800 capitalize">
-                          {transport.transport_type === 'hotel_pickup' ? 'Hotel Pickup' : 
-                           transport.transport_type === 'private' ? 'Private Transfer' : 
-                           transport.transport_type} Transfer
+                        <p className="text-xs font-medium text-blue-800">
+                          {transport?.transport_type === 'hotel_pickup' ? 'Hotel Pickup' : 
+                           transport?.transport_type === 'private' ? 'Private Transfer' : 'Transfer'}
                         </p>
-                        {transport.hotel_name && (
-                          <p className="text-[10px] text-blue-600">
-                            {transport.hotel_name}
-                            {transport.room_number && `, Room ${transport.room_number}`}
+                        {transport?.hotel_name && (
+                          <p className="text-[10px] text-blue-600 flex items-center gap-1">
+                            <Hotel className="w-3 h-3" />
+                            {transport.hotel_name}{transport.room_number && `, Room ${transport.room_number}`}
                           </p>
                         )}
                       </div>
@@ -308,72 +278,49 @@ function SuccessContent() {
                 )}
 
                 {/* Total */}
-                <div className="flex items-center justify-between p-3 bg-[#1a1a1a] rounded-lg mb-4">
-                  <span className="text-sm text-white/80">Total Paid</span>
+                <div className="flex items-center justify-between p-3 bg-[#1a1a1a] rounded-lg mb-3">
+                  <span className="text-xs text-white/70">Total Paid</span>
                   <span className="text-lg font-bold text-[#f2e421]">{formatCurrency(booking.total_amount)}</span>
                 </div>
               </>
             )}
 
-            {/* Important Information - Dynamic based on transfer */}
-            <div className="bg-amber-50 border border-amber-100 rounded-lg p-3 mb-4">
-              <h3 className="text-xs font-semibold text-amber-800 mb-2 uppercase tracking-wide">Important Information</h3>
-              <ul className="space-y-1 text-xs text-amber-700">
-                {hasTransfer ? (
-                  <li className="flex items-start gap-1.5">
-                    <span className="text-amber-500 mt-0.5">•</span>
-                    Be at your hotel lobby 15 minutes before the pick-up time
-                  </li>
-                ) : (
-                  <li className="flex items-start gap-1.5">
-                    <span className="text-amber-500 mt-0.5">•</span>
-                    Arrive at least 30 minutes before your scheduled time
-                  </li>
-                )}
-                <li className="flex items-start gap-1.5">
-                  <span className="text-amber-500 mt-0.5">•</span>
-                  Bring your booking confirmation
-                </li>
-                <li className="flex items-start gap-1.5">
-                  <span className="text-amber-500 mt-0.5">•</span>
-                  Wear comfortable light clothes and closed-toe shoes
-                </li>
-                <li className="flex items-start gap-1.5">
-                  <span className="text-amber-500 mt-0.5">•</span>
-                  Weight limit: 120kg maximum for zipline
-                </li>
+            {/* Important Info */}
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-2.5 mb-3">
+              <h3 className="text-[10px] font-semibold text-amber-800 mb-1.5 uppercase">Important</h3>
+              <ul className="space-y-0.5 text-[11px] text-amber-700">
+                <li>• {hasTransfer ? 'Be at hotel lobby 15 min before pick-up' : 'Arrive 30 min before scheduled time'}</li>
+                <li>• Bring booking confirmation</li>
+                <li>• Wear comfortable clothes & closed-toe shoes</li>
+                <li>• Weight limit: 120kg for zipline</li>
               </ul>
             </div>
 
-            {/* Location - Compact */}
-            <div className="bg-slate-50 rounded-lg p-3 mb-4">
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-[#f2e421] mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-xs font-semibold text-slate-800">Flying Hanuman</p>
-                  <p className="text-[10px] text-slate-600">89/16 Moo 6, Soi Namtok Kathu, Kathu, Phuket 83120</p>
-                </div>
+            {/* Location */}
+            <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg mb-3">
+              <MapPin className="w-4 h-4 text-[#f2e421]" />
+              <div>
+                <p className="text-xs font-semibold text-slate-800">Flying Hanuman</p>
+                <p className="text-[10px] text-slate-500">89/16 Moo 6, Soi Namtok Kathu, Phuket 83120</p>
               </div>
             </div>
 
-            {/* Single Button */}
+            {/* Button */}
             <Link href="/" className="block">
-              <button className="w-full px-5 py-3 bg-[#f2e421] hover:bg-[#d4c91e] text-black font-semibold rounded-xl transition-colors text-sm">
+              <button className="w-full py-2.5 bg-[#f2e421] hover:bg-[#d4c91e] text-black font-semibold rounded-xl transition-colors text-sm">
                 Back to Home
               </button>
             </Link>
 
-            {/* Help Section - Compact */}
-            <div className="mt-4 pt-4 border-t border-slate-100">
-              <p className="text-center text-[10px] text-slate-500 mb-2 uppercase tracking-wide">Need help with your booking?</p>
-              <div className="flex flex-col sm:flex-row justify-center gap-2 text-xs">
-                <a href="mailto:support@flyinghanuman.com" className="flex items-center justify-center gap-1.5 text-[#1a1a1a] hover:underline">
-                  <Mail className="w-3.5 h-3.5" />
-                  support@flyinghanuman.com
+            {/* Help */}
+            <div className="mt-3 pt-3 border-t border-slate-100 text-center">
+              <p className="text-[10px] text-slate-400 mb-1">Need help?</p>
+              <div className="flex justify-center gap-3 text-[11px]">
+                <a href="mailto:support@flyinghanuman.com" className="flex items-center gap-1 text-slate-600 hover:underline">
+                  <Mail className="w-3 h-3" /> support@flyinghanuman.com
                 </a>
-                <a href="tel:+66629795533" className="flex items-center justify-center gap-1.5 text-[#1a1a1a] hover:underline">
-                  <Phone className="w-3.5 h-3.5" />
-                  +66 62 979 5533
+                <a href="tel:+66629795533" className="flex items-center gap-1 text-slate-600 hover:underline">
+                  <Phone className="w-3 h-3" /> +66 62 979 5533
                 </a>
               </div>
             </div>
