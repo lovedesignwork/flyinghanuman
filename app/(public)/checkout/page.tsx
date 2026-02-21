@@ -321,7 +321,7 @@ function CheckoutContent() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8">
-              {/* Left Column - Booking & Customer Details */}
+              {/* Left Column - Booking & Player Details */}
               <div className="space-y-6">
                 {/* Booking Summary Card */}
                 <motion.div
@@ -390,7 +390,7 @@ function CheckoutContent() {
                   </div>
                 </motion.div>
 
-                {/* Customer Details */}
+                {/* Player Details */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -401,7 +401,7 @@ function CheckoutContent() {
                   <div className="px-6 py-4 bg-[#f2e421]">
                     <h2 className="text-lg font-bold text-black flex items-center gap-2">
                       <User className="w-5 h-5 text-black" />
-                      Customer Details
+                      Player Details
                     </h2>
                   </div>
                   <div className="p-6 space-y-4">
