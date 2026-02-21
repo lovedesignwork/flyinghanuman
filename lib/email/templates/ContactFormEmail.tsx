@@ -45,7 +45,7 @@ export const ContactFormEmail = ({
           {/* Alert Banner */}
           <Section style={alertBanner}>
             <Text style={alertText}>
-              You have received a new message from the Hanuman World website contact form.
+              You have received a new message from the Flying Hanuman website contact form.
             </Text>
           </Section>
 
@@ -114,10 +114,10 @@ export const ContactFormEmail = ({
           {/* Footer */}
           <Section style={footer}>
             <Text style={footerText}>
-              This email was sent from the Hanuman World website contact form.
+              This email was sent from the Flying Hanuman website contact form.
             </Text>
             <Text style={footerText}>
-              © {new Date().getFullYear()} Hanuman World Phuket. All rights reserved.
+              © {new Date().getFullYear()} Flying Hanuman. All rights reserved.
             </Text>
           </Section>
         </Container>
@@ -141,13 +141,13 @@ const container = {
 };
 
 const header = {
-  backgroundColor: '#1a237e',
+  backgroundColor: '#1a1a1a',
   padding: '30px 40px',
   borderRadius: '12px 12px 0 0',
 };
 
 const headerTitle = {
-  color: '#ffffff',
+  color: '#f2e421',
   fontSize: '24px',
   fontWeight: '700',
   margin: '0',
@@ -155,12 +155,12 @@ const headerTitle = {
 };
 
 const alertBanner = {
-  backgroundColor: '#f97316',
+  backgroundColor: '#f2e421',
   padding: '15px 40px',
 };
 
 const alertText = {
-  color: '#ffffff',
+  color: '#000000',
   fontSize: '14px',
   margin: '0',
   textAlign: 'center' as const,
@@ -172,7 +172,7 @@ const detailsCard = {
 };
 
 const sectionTitle = {
-  color: '#1a237e',
+  color: '#1a1a1a',
   fontSize: '18px',
   fontWeight: '600',
   margin: '0 0 20px 0',
@@ -200,7 +200,7 @@ const valueCell = {
 };
 
 const link = {
-  color: '#1a237e',
+  color: '#1a1a1a',
   textDecoration: 'underline',
 };
 
@@ -232,14 +232,14 @@ const actionText = {
 };
 
 const actionLink = {
-  color: '#1a237e',
+  color: '#1a1a1a',
   fontSize: '14px',
   fontWeight: '500',
   textDecoration: 'underline',
 };
 
 const footer = {
-  backgroundColor: '#1e293b',
+  backgroundColor: '#1a1a1a',
   padding: '20px 40px',
   borderRadius: '0 0 12px 12px',
 };

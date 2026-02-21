@@ -279,7 +279,7 @@ function BookingContent() {
                           style={{ backgroundImage: `url(${selectedPackage.image})` }}
                         />
                         <div className="flex-grow min-w-0">
-                          <h3 className="text-lg sm:text-xl md:text-[29px] font-[family-name:var(--font-oswald)] font-medium text-white truncate">
+                          <h3 className="text-lg sm:text-xl md:text-[25px] font-[family-name:var(--font-oswald)] font-medium text-white line-clamp-2">
                             {selectedPackage.name}
                           </h3>
                           <div className="flex flex-wrap items-center gap-1 sm:gap-3 text-xs sm:text-sm text-white/60">
@@ -383,7 +383,7 @@ function BookingContent() {
                             style={{ backgroundImage: `url(${pkg.image})` }}
                           />
                           <div className="flex-grow min-w-0">
-                            <h4 className="text-lg sm:text-xl md:text-[30px] font-[family-name:var(--font-oswald)] font-medium text-white truncate">
+                            <h4 className="text-lg sm:text-xl md:text-[25px] font-[family-name:var(--font-oswald)] font-medium text-white line-clamp-2">
                               {pkg.name}
                             </h4>
                             <p className="text-xs text-white/50">{pkg.duration}</p>
@@ -431,17 +431,10 @@ function BookingContent() {
                             return (
                               <div
                                 key={promo.id}
-                                className="p-3 sm:p-4 rounded-xl border-2 border-white/20 relative overflow-hidden"
-                                style={{ background: 'linear-gradient(135deg, #0d1259 0%, #0d4a4a 50%, #2a1a5c 100%)' }}
+                                className="p-3 sm:p-4 rounded-xl border-2 border-black/10 bg-[#f2e421]"
                               >
-                                {/* Rotating circle decoration */}
-                                <img 
-                                  src="/images/circlebg.png" 
-                                  alt=""
-                                  className="absolute -right-10 -bottom-10 w-[120px] sm:w-[160px] h-[120px] sm:h-[160px] opacity-20 animate-spin-slow"
-                                />
                                 {/* Mobile: Stack vertically (image on top), Desktop: Side by side */}
-                                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 relative z-10">
+                                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                                   {/* Image - Full width on mobile, fixed width on desktop */}
                                   <div 
                                     className="w-full sm:w-[120px] md:w-[50%] aspect-[16/9] sm:aspect-[10/8] rounded-lg bg-cover bg-center flex-shrink-0"
@@ -451,16 +444,16 @@ function BookingContent() {
                                   {/* Info & Quantity */}
                                   <div className="flex-grow min-w-0">
                                     <div className="flex flex-wrap items-center gap-1 sm:gap-2 mb-1">
-                                      <h4 className="text-lg sm:text-lg md:text-[23px] font-[family-name:var(--font-oswald)] font-normal text-white">
+                                      <h4 className="text-lg sm:text-lg md:text-[23px] font-[family-name:var(--font-trade-winds)] font-normal text-black">
                                         {promo.name}
                                       </h4>
                                       {promo.discount && (
-                                        <span className="px-1.5 sm:px-2 py-0.5 bg-orange-500 text-white text-[10px] sm:text-xs font-medium rounded">
+                                        <span className="px-1.5 sm:px-2 py-0.5 bg-black text-[#f2e421] text-[10px] sm:text-xs font-medium rounded">
                                           {promo.discount}
                                         </span>
                                       )}
                                     </div>
-                                    <p className="text-xs sm:text-xs text-white/60 mb-2 sm:mb-2 line-clamp-2">
+                                    <p className="text-xs sm:text-xs text-black/60 mb-2 sm:mb-2 line-clamp-2">
                                       {promo.description}
                                     </p>
                                     
@@ -469,32 +462,32 @@ function BookingContent() {
                                       {/* Price */}
                                       <div className="flex items-center gap-2">
                                         {promo.originalPrice && (
-                                          <span className="text-sm sm:text-base text-white/40 line-through">
+                                          <span className="text-sm sm:text-base text-black/40 line-through">
                                             {formatPrice(promo.originalPrice)}
                                           </span>
                                         )}
-                                        <span className="text-xl sm:text-2xl font-[family-name:var(--font-oswald)] font-medium text-orange-400">
+                                        <span className="text-xl sm:text-2xl font-[family-name:var(--font-oswald)] font-medium text-black">
                                           {formatPrice(promo.price)}
                                         </span>
                                       </div>
                                       
                                       {/* Quantity Selector */}
                                       <div className="flex items-center gap-2 sm:gap-3">
-                                        <p className="text-[10px] sm:text-[10px] text-white/40 uppercase">Player</p>
+                                        <p className="text-[10px] sm:text-[10px] text-black/40 uppercase">Player</p>
                                         <div className="flex items-center gap-1 sm:gap-2">
                                           <button
                                             onClick={() => updatePromoAddonQty(promo.id, -1)}
                                             disabled={qty <= 0}
-                                            className="h-8 w-8 sm:h-8 sm:w-8 rounded border-2 border-orange-500 bg-orange-500 flex items-center justify-center hover:bg-orange-600 hover:border-orange-600 disabled:opacity-30 disabled:cursor-not-allowed"
+                                            className="h-8 w-8 sm:h-8 sm:w-8 rounded border-2 border-black bg-black flex items-center justify-center hover:bg-[#1a1a1a] hover:border-[#1a1a1a] disabled:opacity-30 disabled:cursor-not-allowed"
                                           >
-                                            <Minus className="w-3.5 h-3.5 text-white" />
+                                            <Minus className="w-3.5 h-3.5 text-black" />
                                           </button>
-                                          <span className="w-8 sm:w-8 text-center text-lg sm:text-lg font-bold text-white">{qty}</span>
+                                          <span className="w-8 sm:w-8 text-center text-lg sm:text-lg font-bold text-black">{qty}</span>
                                           <button
                                             onClick={() => updatePromoAddonQty(promo.id, 1)}
-                                            className="h-8 w-8 sm:h-8 sm:w-8 rounded border-2 border-orange-500 bg-orange-500 flex items-center justify-center hover:bg-orange-600 hover:border-orange-600"
+                                            className="h-8 w-8 sm:h-8 sm:w-8 rounded border-2 border-black bg-black flex items-center justify-center hover:bg-[#1a1a1a] hover:border-[#1a1a1a]"
                                           >
-                                            <Plus className="w-3.5 h-3.5 text-white" />
+                                            <Plus className="w-3.5 h-3.5 text-black" />
                                           </button>
                                         </div>
                                       </div>
@@ -527,21 +520,33 @@ function BookingContent() {
                   >
                     {/* Form Header */}
                     <div 
-                      className="px-4 sm:px-6 py-4 sm:py-5 relative overflow-hidden"
-                      style={{ 
-                        background: 'linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 35%, #252525 70%, #2d2d2d 100%)',
-                        borderBottom: '3px solid #f2e421' 
-                      }}
+                      className="px-4 sm:px-6 py-4 sm:py-5 relative overflow-hidden bg-[#f2e421]"
                     >
-                      {/* Decorative circle */}
-                      <img 
-                        src="/images/circlebg.png" 
-                        alt=""
-                        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-28 sm:w-40 h-28 sm:h-40 opacity-30 animate-spin-slow"
+                      {/* Adventure pattern background */}
+                      <div 
+                        className="absolute inset-0 opacity-10"
+                        style={{
+                          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                        }}
                       />
+                      {/* Diagonal stripes overlay */}
+                      <div 
+                        className="absolute inset-0 opacity-5"
+                        style={{
+                          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, #000 10px, #000 12px)`,
+                        }}
+                      />
+                      {/* Mountain silhouette */}
+                      <svg 
+                        className="absolute bottom-0 left-0 right-0 h-8 opacity-10"
+                        viewBox="0 0 1200 60" 
+                        preserveAspectRatio="none"
+                      >
+                        <path d="M0,60 L0,40 L100,25 L200,35 L300,15 L400,30 L500,10 L600,25 L700,5 L800,20 L900,8 L1000,22 L1100,12 L1200,28 L1200,60 Z" fill="#000"/>
+                      </svg>
                       
-                      <p className="text-white/70 text-[10px] sm:text-xs uppercase tracking-wider mb-1 relative z-10">BOOK YOUR EXPERIENCE</p>
-                      <h2 className="text-white font-[family-name:var(--font-oswald)] relative z-10 text-lg sm:text-xl md:text-[25px]" style={{ fontWeight: 400 }}>
+                      <p className="text-black/60 text-[10px] sm:text-xs uppercase tracking-wider mb-1 relative z-10 font-medium">BOOK YOUR EXPERIENCE</p>
+                      <h2 className="text-black font-[family-name:var(--font-trade-winds)] relative z-10 text-lg sm:text-xl md:text-[25px]">
                         {selectedPackage.name}
                       </h2>
                     </div>
@@ -592,7 +597,7 @@ function BookingContent() {
                                     className={`h-10 sm:h-11 px-2 sm:px-4 rounded-lg border-2 text-xs sm:text-sm font-medium transition-all ${
                                       selectedTime === slot.time
                                         ? 'border-[#f2e421] bg-[#f2e421] text-black'
-                                        : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                                        : 'border-slate-400 bg-white text-slate-700 hover:border-slate-300'
                                     } ${!slot.available && 'opacity-40 cursor-not-allowed'}`}
                                   >
                                     {slot.label}
@@ -625,7 +630,7 @@ function BookingContent() {
                               disabled={guestCount <= 1}
                               className="h-8 w-8 sm:h-9 sm:w-9 rounded-full border-2 border-[#f2e421] flex items-center justify-center hover:bg-[#f2e421]/10 disabled:opacity-30 disabled:cursor-not-allowed"
                             >
-                              <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#f2e421]" strokeWidth={2.5} />
+                              <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black" strokeWidth={2.5} />
                             </button>
                             <span className="w-8 sm:w-10 text-center text-xl sm:text-2xl font-bold text-slate-800 tabular-nums">
                               {guestCount}
@@ -634,7 +639,7 @@ function BookingContent() {
                               onClick={() => handleGuestCountChange(1)}
                               className="h-8 w-8 sm:h-9 sm:w-9 rounded-full border-2 border-[#f2e421] flex items-center justify-center hover:bg-[#f2e421]/10"
                             >
-                              <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#f2e421]" strokeWidth={2.5} />
+                              <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black" strokeWidth={2.5} />
                             </button>
                           </div>
                         </div>
@@ -660,7 +665,7 @@ function BookingContent() {
                                 className={`p-2.5 sm:p-4 rounded-xl border-2 text-left transition-all ${
                                   needPickup 
                                     ? 'border-[#f2e421] bg-[#f2e421]' 
-                                    : 'border-slate-200 bg-slate-50'
+                                    : 'border-slate-400 bg-slate-50'
                                 }`}
                               >
                                 <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
@@ -677,7 +682,7 @@ function BookingContent() {
                                 className={`p-2.5 sm:p-4 rounded-xl border-2 text-left transition-all ${
                                   !needPickup 
                                     ? 'border-[#f2e421] bg-[#f2e421]' 
-                                    : 'border-slate-200 bg-slate-50'
+                                    : 'border-slate-400 bg-slate-50'
                                 }`}
                               >
                                 <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
@@ -709,7 +714,7 @@ function BookingContent() {
                                       value={hotelName}
                                       onChange={(e) => setHotelName(e.target.value)}
                                       placeholder="Your hotel name"
-                                      className="w-full h-10 pl-10 pr-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:border-[#f2e421]"
+                                      className="w-full h-10 pl-10 pr-3 bg-slate-50 border border-slate-400 rounded-xl text-slate-800 text-sm focus:outline-none focus:border-[#f2e421]"
                                     />
                                   </div>
                                 </div>
@@ -720,7 +725,7 @@ function BookingContent() {
                                     value={roomNumber}
                                     onChange={(e) => setRoomNumber(e.target.value)}
                                     placeholder="101"
-                                    className="w-full h-10 px-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:border-[#f2e421]"
+                                    className="w-full h-10 px-3 bg-slate-50 border border-slate-400 rounded-xl text-slate-800 text-sm focus:outline-none focus:border-[#f2e421]"
                                   />
                                 </div>
                               </div>
@@ -731,7 +736,7 @@ function BookingContent() {
                                 className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
                                   privateTransfer 
                                     ? 'border-[#f2e421] bg-yellow-50/30' 
-                                    : 'border-slate-200 bg-slate-50'
+                                    : 'border-slate-400 bg-slate-50'
                                 }`}
                               >
                                 <div className="flex items-center justify-between">
@@ -758,7 +763,7 @@ function BookingContent() {
                                       initial={{ opacity: 0, height: 0 }}
                                       animate={{ opacity: 1, height: 'auto' }}
                                       exit={{ opacity: 0, height: 0 }}
-                                      className="mt-4 pt-4 border-t border-slate-200"
+                                      className="mt-4 pt-4 border-t border-slate-400"
                                       onClick={(e) => e.stopPropagation()}
                                     >
                                       <div className="flex items-center justify-between">
@@ -779,7 +784,7 @@ function BookingContent() {
                                             disabled={privateTransferPassengers <= guestCount}
                                             className="h-8 w-8 rounded-full border-2 border-[#f2e421] flex items-center justify-center hover:bg-[#f2e421]/10 disabled:opacity-30"
                                           >
-                                            <Minus className="w-3 h-3 text-[#f2e421]" />
+                                            <Minus className="w-3 h-3 text-black" />
                                           </button>
                                           <span className="w-8 text-center font-bold text-slate-800">{privateTransferPassengers}</span>
                                           <button
@@ -787,7 +792,7 @@ function BookingContent() {
                                             disabled={privateTransferPassengers >= MAX_PRIVATE_PASSENGERS}
                                             className="h-8 w-8 rounded-full border-2 border-[#f2e421] flex items-center justify-center hover:bg-[#f2e421]/10 disabled:opacity-30"
                                           >
-                                            <Plus className="w-3 h-3 text-[#f2e421]" />
+                                            <Plus className="w-3 h-3 text-black" />
                                           </button>
                                         </div>
                                       </div>
@@ -798,7 +803,7 @@ function BookingContent() {
 
                               {/* Non-player addon (only when private transfer OFF) */}
                               {!privateTransfer && (
-                                <div className="p-4 rounded-xl border-2 border-slate-200 bg-slate-50">
+                                <div className="p-4 rounded-xl border-2 border-slate-400 bg-slate-50">
                                   <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                       <div className="w-10 h-10 rounded-lg bg-slate-200 flex items-center justify-center">
@@ -815,14 +820,14 @@ function BookingContent() {
                                         disabled={nonPlayerCount <= 0}
                                         className="h-8 w-8 rounded-full border-2 border-[#f2e421] flex items-center justify-center hover:bg-[#f2e421]/10 disabled:opacity-30"
                                       >
-                                        <Minus className="w-3 h-3 text-[#f2e421]" />
+                                        <Minus className="w-3 h-3 text-black" />
                                       </button>
                                       <span className="w-8 text-center font-bold text-slate-800">{nonPlayerCount}</span>
                                       <button
                                         onClick={() => setNonPlayerCount(nonPlayerCount + 1)}
                                         className="h-8 w-8 rounded-full border-2 border-[#f2e421] flex items-center justify-center hover:bg-[#f2e421]/10"
                                       >
-                                        <Plus className="w-3 h-3 text-[#f2e421]" />
+                                        <Plus className="w-3 h-3 text-black" />
                                       </button>
                                     </div>
                                   </div>
@@ -941,7 +946,7 @@ function BookingContent() {
                             </div>
                           )}
                           
-                          <div className="border-t border-slate-200/80 pt-2 sm:pt-3 mt-2 sm:mt-3 flex justify-between items-center">
+                          <div className="border-t border-slate-400/80 pt-2 sm:pt-3 mt-2 sm:mt-3 flex justify-between items-center">
                             <span className="font-medium text-slate-400 text-sm">Total</span>
                             <span className="text-xl sm:text-2xl font-extrabold" style={{ color: '#1a1a1a' }}>
                               {formatPrice(prices.total)}

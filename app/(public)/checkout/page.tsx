@@ -307,13 +307,6 @@ function CheckoutContent() {
         className="relative overflow-hidden !pt-8"
         style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 30%, #252525 60%, #1a1a1a 100%)', paddingBottom: '250px' }}
       >
-        {/* Background circles */}
-        <img 
-          src="/images/circlebig.png"
-          alt=""
-          className="absolute w-[600px] h-[600px] opacity-10 pointer-events-none object-contain top-[-10%] left-[-10%] animate-spin-slow"
-        />
-        
         <Container className="relative z-10">
           {/* Header */}
           <div className="mb-8">
@@ -337,14 +330,14 @@ function CheckoutContent() {
                   className="bg-white rounded-2xl overflow-hidden shadow-xl"
                   style={{ border: '2px solid #f2e421' }}
                 >
-                  <div className="px-6 py-4 bg-[#1a1a1a] flex items-center justify-between">
-                    <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                      <Calendar className="w-5 h-5 text-[#f2e421]" />
+                  <div className="px-6 py-4 bg-[#f2e421] flex items-center justify-between">
+                    <h2 className="text-lg font-bold text-black flex items-center gap-2">
+                      <Calendar className="w-5 h-5 text-black" />
                       Booking Summary
                     </h2>
                     <Link 
                       href={editBookingUrl}
-                      className="flex items-center gap-1.5 text-sm text-white/80 hover:text-white transition-colors"
+                      className="flex items-center gap-1.5 text-sm text-black/70 hover:text-black transition-colors"
                     >
                       <Pencil className="w-4 h-4" />
                       Edit
@@ -405,9 +398,9 @@ function CheckoutContent() {
                   className="bg-white rounded-2xl overflow-hidden shadow-xl"
                   style={{ border: '2px solid #f2e421' }}
                 >
-                  <div className="px-6 py-4 bg-[#1a1a1a]">
-                    <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                      <User className="w-5 h-5 text-[#f2e421]" />
+                  <div className="px-6 py-4 bg-[#f2e421]">
+                    <h2 className="text-lg font-bold text-black flex items-center gap-2">
+                      <User className="w-5 h-5 text-black" />
                       Customer Details
                     </h2>
                   </div>
@@ -510,8 +503,8 @@ function CheckoutContent() {
                   style={{ border: '2px solid #f2e421' }}
                 >
                   {/* Order Summary Header */}
-                  <div className="px-6 py-4 bg-[#1a1a1a]">
-                    <h2 className="text-lg font-bold text-white">Order Summary</h2>
+                  <div className="px-6 py-4 bg-[#f2e421]">
+                    <h2 className="text-lg font-bold text-black">Order Summary</h2>
                   </div>
                   
                   <div className="p-6">

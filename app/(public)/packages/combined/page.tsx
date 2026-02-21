@@ -2,27 +2,23 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Utensils, Bus, Clock, Users, ArrowRight, Star, Check } from 'lucide-react';
 import { Container, Section } from '@/components/ui';
-import { getPackagesByCategory } from '@/lib/data/packages';
+import { packages as allPackages } from '@/lib/data/packages';
 import { formatPrice } from '@/lib/utils';
 
 const statLabels: Record<string, string> = {
   platforms: 'Platforms',
   ziplines: 'Ziplines',
-  skyBridge: 'Sky Bridge',
+  skyBridge: 'Sky Bridges',
   abseilPoints: 'Abseil Points',
-  dualZipline: 'Dual Zipline',
-  spiralStaircase: 'Spiral Staircase',
-  rollerZipline: 'Roller Zipline',
-  skyWalk: 'Sky Walk',
-  totalActivities: 'Activities',
-  rollerZiplineMetres: 'm Roller',
-  skywalkMetres: 'm Skywalk',
+  canopyWalk: 'Canopy Walk',
+  parks: 'Parks',
 };
 
 export default function CombinedPackagesPage() {
-  const packages = getPackagesByCategory('combined');
+  const packages = allPackages.filter(pkg => pkg.category !== 'transfer');
 
   return (
     <main className="min-h-screen">
@@ -41,11 +37,11 @@ export default function CombinedPackagesPage() {
               Best Value Packages
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-trade-winds)] text-white mb-6">
-              Combined <span className="text-[#f2e421]">Adventures</span>
+              All <span className="text-[#f2e421]">Packages</span>
             </h1>
             <p className="text-lg text-white/70">
-              Get the best value with our all-inclusive adventure packages. Each package includes 
-              multiple activities, free transfers, and unforgettable memories.
+              Explore our complete range of adventure packages. From zipline thrills to combo experiences, 
+              find the perfect adventure for you.
             </p>
           </motion.div>
         </Container>
@@ -68,9 +64,11 @@ export default function CombinedPackagesPage() {
                   <div className="flex flex-col lg:flex-row">
                     {/* Image Section */}
                     <div className="relative h-72 lg:h-auto lg:w-[40%] overflow-hidden">
-                      <div 
-                        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                        style={{ backgroundImage: `url(${pkg.image})` }}
+                      <Image
+                        src={pkg.image}
+                        alt={pkg.name}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#1a1a1a]/50 lg:block hidden" />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] to-transparent lg:hidden" />
@@ -120,7 +118,7 @@ export default function CombinedPackagesPage() {
                           </span>
                         )}
                         {pkg.includesTransfer && (
-                          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 text-blue-400 text-sm">
+                          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f2e421]/10 text-[#f2e421] text-sm">
                             <Bus className="w-4 h-4" />
                             Free Round-Trip Transfer
                           </span>
@@ -148,13 +146,13 @@ export default function CombinedPackagesPage() {
                             <span className="text-lg text-white/60 font-normal"> / person</span>
                           </div>
                         </div>
-                        <Link href={`/booking?package=${pkg.id}`}>
+                        <Link href={`/packages/${pkg.slug}`}>
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className="flex items-center gap-2 px-8 py-4 bg-[#f2e421] hover:bg-[#d4c91e] text-black font-medium rounded-full transition-all shadow-lg hover:shadow-[#f2e421]/30"
                           >
-                            Book Now
+                            View Details
                             <ArrowRight className="w-5 h-5" />
                           </motion.button>
                         </Link>
@@ -173,11 +171,11 @@ export default function CombinedPackagesPage() {
         <Container>
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-[family-name:var(--font-trade-winds)] text-white mb-4">
-              Why Choose <span className="text-[#f2e421]">Combined Packages</span>?
+              Why Choose <span className="text-[#f2e421]">Flying Hanuman</span>?
             </h2>
             <p className="text-white/60 mb-8">
-              Our combined packages offer the best value for your adventure. Get multiple activities, 
-              free transfers, and meals all in one booking.
+              Experience Phuket&apos;s ultimate jungle adventure. Our packages offer incredible value with 
+              free transfers, professional guides, and unforgettable memories.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-6 bg-[#0f0f0f] rounded-xl border border-white/10">

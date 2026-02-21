@@ -2,105 +2,157 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Calendar, Clock, Zap } from 'lucide-react';
-import { Section, Container, Button } from '@/components/ui';
+import Image from 'next/image';
+import { ArrowRight, Phone, MessageCircle } from 'lucide-react';
 
 export function CTABanner() {
   return (
-    <Section className="relative overflow-hidden py-28">
-      {/* Background image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(/images/ctabg.jpeg)' }}
-      />
-      
-      {/* Dark blue and dark purple diagonal overlay */}
-      <div 
-        className="absolute inset-0"
-        style={{ background: 'linear-gradient(135deg, rgba(13, 18, 89, 0.92) 0%, rgba(26, 35, 126, 0.85) 25%, rgba(59, 26, 90, 0.8) 50%, rgba(88, 28, 135, 0.75) 75%, rgba(107, 33, 168, 0.7) 100%)' }}
-      />
-      
-      {/* Decorative circles */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-accent/10 rounded-full -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full translate-x-1/3 translate-y-1/3" />
-      
-      <Container className="relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="text-center lg:text-left"
-          >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 font-[family-name:var(--font-oswald)] tracking-wide">
-              READY FOR YOUR ADVENTURE?
-            </h2>
-            <p className="text-white/90 text-lg max-w-xl">
-              Book now and secure your spot for an unforgettable jungle experience. 
-              Free hotel pickup included with all packages!
-            </p>
-            
-            <div className="flex flex-wrap justify-center lg:justify-start gap-6 mt-6">
-              <div className="flex items-center gap-2 text-white/90">
-                <Calendar className="w-5 h-5" />
-                <span>Flexible Dates</span>
-              </div>
-              <div className="flex items-center gap-2 text-white/90">
-                <Clock className="w-5 h-5" />
-                <span>4 Time Slots Daily</span>
-              </div>
-              <div className="flex items-center gap-2 text-white/90">
-                <Zap className="w-5 h-5" />
-                <span>Instant Confirmation</span>
-              </div>
-            </div>
-          </motion.div>
+    <section className="relative py-24 overflow-visible">
+      {/* Top Tear Divider - Dark tear overlapping from above */}
+      <div className="absolute -top-16 left-0 right-0 h-32 z-20 pointer-events-none">
+        <svg 
+          viewBox="0 0 1200 120" 
+          preserveAspectRatio="none" 
+          className="absolute bottom-0 w-full h-full"
+        >
+          <path 
+            d="M0,120 L0,60 C100,80 200,40 300,55 C400,70 500,35 600,50 C700,65 800,30 900,45 C1000,60 1100,25 1200,40 L1200,120 Z" 
+            fill="#0f0f0f"
+          />
+          <path 
+            d="M0,60 Q60,75 120,55 T240,65 T360,50 T480,60 T600,45 T720,55 T840,40 T960,50 T1080,35 T1200,45" 
+            fill="none" 
+            stroke="#1a1a1a" 
+            strokeWidth="2"
+          />
+        </svg>
+      </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex-shrink-0"
-          >
-            {/* Card with animated border similar to package cards */}
-            <div className="p-[3px] rounded-2xl animated-silver-border">
-              <div className="relative rounded-2xl overflow-hidden animated-card-bg-deep-blue p-8 min-w-[320px]">
-                {/* Circle decoration */}
-                <img 
-                  src="/images/circlebg.png" 
-                  alt="" 
-                  className="absolute opacity-10 pointer-events-none"
-                  style={{ width: '300px', height: '300px', top: '-50px', right: '-50px' }}
-                />
-                
-                <div className="relative z-10 text-center">
-                  <p className="text-white/70 text-sm uppercase tracking-widest mb-2 font-semibold">
-                    STARTING FROM
-                  </p>
-                  <div className="text-7xl font-bold text-white font-[family-name:var(--font-oswald)] mb-1">
-                    ฿350
-                  </div>
-                  <p className="text-white/70 text-lg mb-6">per person</p>
-                  
-                  <Link href="/booking" className="block">
-                    <div className="p-[2px] rounded-xl animated-silver-border-btn transition-all duration-300 hover:scale-105">
-                      <button className="relative z-10 w-full flex items-center justify-center gap-3 py-4 px-8 rounded-xl animated-btn-deep-blue text-white transition-all duration-300 shadow-lg hover:shadow-2xl overflow-hidden">
-                        <span className="text-xl font-bold font-[family-name:var(--font-oswald)] tracking-wider">
-                          BOOK NOW
-                        </span>
-                      </button>
-                    </div>
-                  </Link>
-                  
-                  <p className="text-white/60 text-xs mt-4">
-                    No booking fees • Free cancellation up to 24h
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+      {/* Bottom Tear Divider - Dark tear overlapping into below */}
+      <div className="absolute -bottom-16 left-0 right-0 h-32 z-20 pointer-events-none">
+        <svg 
+          viewBox="0 0 1200 120" 
+          preserveAspectRatio="none" 
+          className="absolute top-0 w-full h-full rotate-180"
+        >
+          <path 
+            d="M0,120 L0,60 C100,80 200,40 300,55 C400,70 500,35 600,50 C700,65 800,30 900,45 C1000,60 1100,25 1200,40 L1200,120 Z" 
+            fill="#0f0f0f"
+          />
+          <path 
+            d="M0,60 Q60,75 120,55 T240,65 T360,50 T480,60 T600,45 T720,55 T840,40 T960,50 T1080,35 T1200,45" 
+            fill="none" 
+            stroke="#1a1a1a" 
+            strokeWidth="2"
+          />
+        </svg>
+      </div>
+
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/Hero%20Image/Skywalk.jpg"
+          alt="Adventure Background"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-black/70" />
+        
+        {/* Decorative diagonal lines */}
+        <div className="absolute inset-0 opacity-10">
+          <svg className="w-full h-full" preserveAspectRatio="none">
+            <defs>
+              <pattern id="diagonalLines" patternUnits="userSpaceOnUse" width="40" height="40" patternTransform="rotate(45)">
+                <line x1="0" y1="0" x2="0" y2="40" stroke="#f2e421" strokeWidth="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#diagonalLines)"/>
+          </svg>
         </div>
-      </Container>
-    </Section>
+      </div>
+
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <span className="inline-block px-6 py-2 bg-[#f2e421] text-black font-medium rounded-full text-sm mb-8">
+            Limited Time Offer - Book Today!
+          </span>
+        </motion.div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-trade-winds)] text-white mb-6"
+        >
+          Ready For Your
+          <br />
+          <span className="text-[#f2e421]">Adventure?</span>
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="text-xl text-white/70 mb-10 max-w-2xl mx-auto"
+        >
+          Book now and experience the thrill of soaring through Phuket&apos;s 
+          ancient rainforest. Free hotel pickup included with all packages!
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+        >
+          <Link href="/booking">
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(242, 228, 33, 0.4)' }}
+              whileTap={{ scale: 0.95 }}
+              className="group px-10 py-5 bg-[#f2e421] text-black font-[family-name:var(--font-trade-winds)] text-xl rounded-full transition-all flex items-center justify-center gap-3"
+            >
+              Book Your Adventure
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+          </Link>
+          
+          <a href="tel:+6676323264">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-10 py-5 bg-white/10 backdrop-blur-sm text-white font-medium text-xl rounded-full border border-white/20 hover:bg-white/20 transition-all flex items-center justify-center gap-3"
+            >
+              <Phone className="w-5 h-5" />
+              Call Us
+            </motion.button>
+          </a>
+        </motion.div>
+
+        {/* Quick Contact */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="mt-12 flex flex-wrap justify-center gap-6 text-white/60"
+        >
+          <a href="tel:+6676323264" className="flex items-center gap-2 hover:text-[#f2e421] transition-colors">
+            <Phone className="w-4 h-4" />
+            +66 76 323 264
+          </a>
+          <a href="https://line.me/flyinghanuman" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#f2e421] transition-colors">
+            <MessageCircle className="w-4 h-4" />
+            LINE: @flyinghanuman
+          </a>
+        </motion.div>
+      </div>
+    </section>
   );
 }

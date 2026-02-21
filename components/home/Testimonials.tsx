@@ -1,138 +1,232 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Star, Quote } from 'lucide-react';
-import { Section, Container, SectionHeader } from '@/components/ui';
-import { staggerContainer, staggerItem } from '@/lib/animations';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 
 const testimonials = [
   {
     id: 1,
     name: 'Sarah Johnson',
-    country: 'Australia',
+    location: 'Sydney, Australia',
     rating: 5,
-    text: 'Absolutely incredible experience! The ziplines were thrilling and the staff made us feel so safe. The roller zipline is unlike anything I\'ve ever done. A must-do in Phuket!',
-    avatar: 'SJ',
+    text: 'Absolutely incredible experience! The ziplines were thrilling and the staff made us feel so safe. The views from the canopy are breathtaking. A must-do in Phuket!',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop',
+    package: 'FH1 Package',
   },
   {
     id: 2,
     name: 'Michael Chen',
-    country: 'Singapore',
+    location: 'Singapore',
     rating: 5,
-    text: 'Brought my whole family including my 6-year-old. Everyone had an amazing time! The guides were patient and professional. The views from the skywalk are breathtaking.',
-    avatar: 'MC',
+    text: 'Brought my whole family including my kids. Everyone had an amazing time! The guides were patient and professional. Best adventure activity we did in Thailand.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop',
+    package: 'FH3 + Canopy',
   },
   {
     id: 3,
     name: 'Emma Williams',
-    country: 'United Kingdom',
+    location: 'London, UK',
     rating: 5,
-    text: 'Best adventure activity in Thailand! The World A+ package is worth every baht. The combination of ziplines, roller coaster, and skywalk is perfect. Highly recommend!',
-    avatar: 'EW',
+    text: 'The combination of ziplines and the jungle scenery is perfect. Worth every penny! The staff speaks great English and made us feel welcome from start to finish.',
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop',
+    package: 'FH2 Package',
   },
   {
     id: 4,
     name: 'David Mueller',
-    country: 'Germany',
+    location: 'Berlin, Germany',
     rating: 5,
     text: 'Professional setup, top-notch safety equipment, and incredibly friendly staff. The jungle scenery is stunning. This was the highlight of our Thailand trip!',
-    avatar: 'DM',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop',
+    package: 'FH1 Package',
   },
 ];
 
 export function Testimonials() {
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const next = () => {
+    setDirection(1);
+    setCurrent((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prev = () => {
+    setDirection(-1);
+    setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(next, 8000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 300 : -300,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 300 : -300,
+      opacity: 0,
+    }),
+  };
+
   return (
-    <Section className="relative overflow-hidden" style={{ backgroundColor: '#0a0f3d' }}>
-      {/* Big rotating circles background */}
-      <img 
-        src="/images/circlebig.png" 
-        alt="" 
-        className="absolute opacity-15 pointer-events-none animate-spin-slow"
-        style={{ width: '800px', height: '800px', top: '-200px', left: '-300px' }}
-      />
-      <img 
-        src="/images/circlebig.png" 
-        alt="" 
-        className="absolute opacity-15 pointer-events-none animate-spin-slow-reverse"
-        style={{ width: '800px', height: '800px', top: '100px', right: '-350px' }}
-      />
-      <img 
-        src="/images/circlebig.png" 
-        alt="" 
-        className="absolute opacity-15 pointer-events-none animate-spin-slow"
-        style={{ width: '800px', height: '800px', bottom: '-300px', left: '30%' }}
-      />
-      
-      <Container className="relative z-10">
-        <SectionHeader
-          title="What Our Guests Say"
-          subtitle="Join thousands of happy adventurers who have experienced the thrill"
-        />
+    <section className="py-24 bg-[#1a1a1a] relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 left-20 w-96 h-96 border border-[#f2e421] rounded-full" />
+        <div className="absolute bottom-20 right-20 w-64 h-64 border border-[#f2e421] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-[#f2e421] rounded-full" />
+      </div>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
-          {testimonials.map((testimonial) => (
-            <motion.div
-              key={testimonial.id}
-              variants={staggerItem}
-              className="relative p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-accent/30 transition-all duration-300"
-            >
-              <Quote className="absolute top-4 right-4 w-20 h-20 text-accent/20" />
-              
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center text-white font-bold text-lg">
-                  {testimonial.avatar}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-[#f2e421] font-medium tracking-widest uppercase text-sm"
+          >
+            Testimonials
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-[family-name:var(--font-trade-winds)] text-white mt-4"
+          >
+            What Adventurers <span className="text-[#f2e421]">Say</span>
+          </motion.h2>
+        </div>
+
+        {/* Testimonial Carousel */}
+        <div className="relative">
+          {/* Large Quote Icon */}
+          <Quote className="absolute -top-8 left-0 w-24 h-24 text-[#f2e421]/10" />
+
+          {/* Navigation Buttons */}
+          <button
+            onClick={prev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-16 z-10 p-3 bg-white/5 hover:bg-[#f2e421] text-white hover:text-black rounded-full transition-all"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-16 z-10 p-3 bg-white/5 hover:bg-[#f2e421] text-white hover:text-black rounded-full transition-all"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
+          {/* Testimonial Card */}
+          <div className="overflow-hidden py-8">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={current}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.5 }}
+                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/10"
+              >
+                <div className="flex flex-col md:flex-row gap-8 items-center">
+                  {/* Avatar */}
+                  <div className="flex-shrink-0">
+                    <div className="relative">
+                      <img
+                        src={testimonials[current].image}
+                        alt={testimonials[current].name}
+                        className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border-4 border-[#f2e421]"
+                      />
+                      <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-[#f2e421] rounded-full flex items-center justify-center">
+                        <Star className="w-5 h-5 text-black fill-current" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 text-center md:text-left">
+                    {/* Stars */}
+                    <div className="flex gap-1 justify-center md:justify-start mb-4">
+                      {[...Array(testimonials[current].rating)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 text-[#f2e421] fill-current" />
+                      ))}
+                    </div>
+
+                    {/* Quote */}
+                    <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-6">
+                      &quot;{testimonials[current].text}&quot;
+                    </p>
+
+                    {/* Author */}
+                    <div>
+                      <h4 className="text-white font-semibold text-lg">
+                        {testimonials[current].name}
+                      </h4>
+                      <p className="text-white/50 text-sm">
+                        {testimonials[current].location}
+                      </p>
+                      <span className="inline-block mt-2 px-3 py-1 bg-[#f2e421]/20 text-[#f2e421] text-xs rounded-full">
+                        {testimonials[current].package}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-white font-semibold text-lg">{testimonial.name}</h4>
-                  <p className="text-white/60 text-sm">{testimonial.country}</p>
-                </div>
-              </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-              <div className="flex gap-1 mb-3">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-10 h-10 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
+          {/* Dots */}
+          <div className="flex justify-center gap-2 mt-6">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setDirection(index > current ? 1 : -1);
+                  setCurrent(index);
+                }}
+                className={`w-3 h-3 rounded-full transition-all ${
+                  index === current ? 'bg-[#f2e421] w-8' : 'bg-white/30'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
 
-              <p className="text-white/80 leading-relaxed">{testimonial.text}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-
+        {/* Stats Row */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-10 text-center"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
         >
-          <div className="flex items-center justify-center gap-8 flex-wrap">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-accent font-[family-name:var(--font-oswald)]">4.9</div>
-              <div className="flex gap-1 justify-center mt-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-8 h-8 fill-yellow-400 text-yellow-400" />
-                ))}
+          {[
+            { value: '4.9', label: 'Google Rating', icon: '⭐' },
+            { value: '10K+', label: 'Happy Guests', icon: '😊' },
+            { value: '15+', label: 'Years Experience', icon: '🏆' },
+            { value: '#1', label: 'In Phuket', icon: '🥇' },
+          ].map((stat, index) => (
+            <div key={index} className="text-center p-6 bg-white/5 rounded-2xl">
+              <div className="text-3xl mb-2">{stat.icon}</div>
+              <div className="text-3xl md:text-4xl font-[family-name:var(--font-trade-winds)] text-[#f2e421]">
+                {stat.value}
               </div>
-              <p className="text-white/60 text-sm mt-1">Google Reviews</p>
+              <div className="text-white/50 text-sm mt-1">{stat.label}</div>
             </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-accent font-[family-name:var(--font-oswald)]">5,000+</div>
-              <p className="text-white/60 text-sm mt-1">Happy Customers</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-accent font-[family-name:var(--font-oswald)]">#1</div>
-              <p className="text-white/60 text-sm mt-1">Adventure Park in Phuket</p>
-            </div>
-          </div>
+          ))}
         </motion.div>
-      </Container>
-    </Section>
+      </div>
+    </section>
   );
 }

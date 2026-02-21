@@ -65,7 +65,7 @@ export const BookingConfirmationEmail = ({
           {/* Header with Logo */}
           <Section style={header}>
             <Img
-              src={`${baseUrl}/logo/LOGO-NS.png`}
+              src={`${baseUrl}/images/LOGO-NS.png`}
               width="180"
               height="auto"
               alt="Flying Hanuman"
@@ -279,7 +279,7 @@ export const BookingConfirmationEmail = ({
           {/* Footer */}
           <Section style={footer}>
             <Img
-              src={`${baseUrl}/logo/LOGO-NS.png`}
+              src={`${baseUrl}/images/LOGO-NS.png`}
               width="120"
               height="auto"
               alt="Flying Hanuman"

@@ -93,7 +93,7 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96">
-        <Loader2 className="w-8 h-8 animate-spin text-[#1a237e]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#f2e421]" />
       </div>
     );
   }
@@ -110,10 +110,10 @@ export default function AdminDashboard() {
         {/* Today's Bookings */}
         <div className="bg-white rounded-xl p-4 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-              <CalendarCheck className="w-4 h-4 text-blue-600" />
+            <div className="w-8 h-8 bg-[#f2e421]/20 rounded-lg flex items-center justify-center">
+              <CalendarCheck className="w-4 h-4 text-[#d4c91e]" />
             </div>
-            <span className="text-[10px] font-medium text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded-full">
+            <span className="text-[10px] font-medium text-[#d4c91e] bg-[#f2e421]/10 px-1.5 py-0.5 rounded-full">
               Today
             </span>
           </div>
@@ -211,7 +211,7 @@ export default function AdminDashboard() {
           <h2 className="text-lg font-semibold text-slate-800">Recent Bookings</h2>
           <Link
             href="/admin/bookings"
-            className="text-sm text-[#1a237e] hover:underline flex items-center gap-1"
+            className="text-sm text-[#d4c91e] hover:underline flex items-center gap-1"
           >
             View All
             <ChevronRight className="w-4 h-4" />
@@ -255,7 +255,7 @@ export default function AdminDashboard() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <Link
                           href={`/admin/bookings/${booking.id}`}
-                          className="text-sm font-medium text-[#1a237e] hover:underline"
+                          className="text-sm font-medium text-[#d4c91e] hover:underline"
                         >
                           {booking.booking_ref}
                         </Link>

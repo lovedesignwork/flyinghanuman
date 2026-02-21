@@ -10,6 +10,8 @@ export interface PackageStats {
   totalActivities?: number;
   rollerZiplineMetres?: number;
   skywalkMetres?: number;
+  canopyWalk?: number;
+  parks?: number;
 }
 
 export interface Package {
@@ -20,7 +22,7 @@ export interface Package {
   shortDescription: string;
   price: number;
   duration: string;
-  category: 'combined' | 'zipline' | 'roller' | 'skywalk' | 'slingshot' | 'luge';
+  category: 'combined' | 'zipline' | 'roller' | 'skywalk' | 'slingshot' | 'luge' | 'transfer';
   image: string;
   gallery: string[];
   features: string[];
@@ -31,6 +33,7 @@ export interface Package {
   stats?: PackageStats;
   includesMeal?: boolean;
   includesTransfer?: boolean;
+  highlights?: string[];
 }
 
 export interface BlogPost {

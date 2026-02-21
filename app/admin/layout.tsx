@@ -147,7 +147,7 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
           <Link href="/admin" className="flex items-center justify-center w-full">
             {sidebarCollapsed ? (
               <Image
-                src="/logo/LOGO-NS.png"
+                src="/images/LOGO-NS.png"
                 alt="FH"
                 width={40}
                 height={40}
@@ -156,7 +156,7 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
               />
             ) : (
               <Image
-                src="/logo/LOGO-NS.png"
+                src="/images/LOGO-NS.png"
                 alt="Flying Hanuman"
                 width={220}
                 height={60}

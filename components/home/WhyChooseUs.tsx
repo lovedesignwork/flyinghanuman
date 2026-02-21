@@ -1,108 +1,192 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Shield, Award, Users, Leaf, Clock, Heart } from 'lucide-react';
-import { Container, Section } from '@/components/ui';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Zap, TreePine, Users, Award, ArrowRight } from 'lucide-react';
 
-const features = [
+const experiences = [
   {
-    icon: Shield,
-    title: '100% Safety',
-    description: 'European CE-certified equipment and professionally trained guides ensure your complete safety throughout the adventure.',
+    icon: Zap,
+    title: 'Adrenaline Rush',
+    description: 'Feel the thrill as you soar through the canopy at speeds up to 60km/h',
+    color: '#f2e421',
   },
   {
-    icon: Award,
-    title: '#1 Rated Park',
-    description: 'Consistently rated as one of the top attractions in Phuket with thousands of 5-star reviews on TripAdvisor.',
+    icon: TreePine,
+    title: 'Ancient Rainforest',
+    description: 'Explore 100-year-old trees in Phuket\'s pristine jungle ecosystem',
+    color: '#22c55e',
   },
   {
     icon: Users,
-    title: 'Family Friendly',
-    description: 'Perfect for all ages from 4 to 80 years old. Our experienced guides make everyone feel comfortable and safe.',
+    title: 'Expert Guides',
+    description: 'Our certified guides ensure your safety while maximizing the fun',
+    color: '#3b82f6',
   },
   {
-    icon: Leaf,
-    title: 'Eco-Friendly',
-    description: 'We operate with minimal environmental impact, preserving the ancient rainforest for future generations.',
-  },
-  {
-    icon: Clock,
-    title: 'Free Transfers',
-    description: 'Complimentary round-trip hotel transfers included with all packages. Sit back and enjoy the ride!',
-  },
-  {
-    icon: Heart,
-    title: 'Unforgettable',
-    description: 'Create memories that last a lifetime. Our unique jungle adventure is unlike anything else in Thailand.',
+    icon: Award,
+    title: 'World-Class Safety',
+    description: 'European EN 15567 certified equipment and rigorous safety protocols',
+    color: '#f97316',
   },
 ];
 
 export function WhyChooseUs() {
-  return (
-    <Section className="relative overflow-hidden bg-[#1a1a1a] py-20">
-      {/* Decorative gradient */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#f2e421]/5 rounded-full blur-3xl pointer-events-none" />
-      
-      <Container className="relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-block px-4 py-2 bg-[#f2e421]/10 text-[#f2e421] rounded-full text-sm font-medium mb-4"
-          >
-            Why Choose Us
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-[family-name:var(--font-trade-winds)] text-white mb-4"
-          >
-            Why <span className="text-[#f2e421]">Flying Hanuman</span>?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-white/60 max-w-2xl mx-auto"
-          >
-            Discover what makes us Phuket&apos;s premier adventure destination
-          </motion.p>
-        </div>
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start']
+  });
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+  return (
+    <section ref={containerRef} className="relative py-24 bg-[#1a1a1a] overflow-hidden">
+      {/* Background Image with Parallax */}
+      <motion.div 
+        style={{ y }}
+        className="absolute inset-0 opacity-10"
+      >
+        <Image
+          src="/images/Hero%20Image/Zipline.jpg"
+          alt=""
+          fill
+          className="object-cover"
+        />
+      </motion.div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left Content */}
+          <div>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group"
+              className="text-[#f2e421] font-medium tracking-widest uppercase text-sm"
             >
-              <div className="relative p-8 bg-[#0f0f0f] rounded-2xl border border-white/10 hover:border-[#f2e421]/30 transition-all duration-300 h-full">
-                {/* Icon */}
-                <div className="w-16 h-16 mb-6 rounded-xl bg-[#f2e421]/10 flex items-center justify-center group-hover:bg-[#f2e421]/20 transition-colors">
-                  <feature.icon className="w-8 h-8 text-[#f2e421]" />
-                </div>
-                
-                {/* Content */}
-                <h3 className="text-xl font-[family-name:var(--font-trade-winds)] text-white mb-3 group-hover:text-[#f2e421] transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-white/60 leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
+              The Experience
+            </motion.span>
+            
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-4xl md:text-5xl font-[family-name:var(--font-trade-winds)] text-white mt-4 mb-6"
+            >
+              Why Choose
+              <br />
+              <span className="text-[#f2e421]">Flying Hanuman?</span>
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-white/60 text-lg mb-10 leading-relaxed"
+            >
+              Nestled in the heart of Phuket&apos;s ancient rainforest, Flying Hanuman 
+              offers an unparalleled adventure experience. Our world-class zipline 
+              courses take you through breathtaking jungle canopy, combining 
+              adrenaline-pumping thrills with stunning natural beauty.
+            </motion.p>
+
+            {/* Experience Cards */}
+            <div className="grid grid-cols-2 gap-4">
+              {experiences.map((exp, index) => (
+                <motion.div
+                  key={exp.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                  className="p-5 bg-white/5 rounded-2xl border border-white/10 hover:border-[#f2e421]/30 transition-all group"
+                >
+                  <div 
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110"
+                    style={{ backgroundColor: `${exp.color}20` }}
+                  >
+                    <exp.icon className="w-6 h-6" style={{ color: exp.color }} />
+                  </div>
+                  <h3 className="text-white font-semibold mb-2">{exp.title}</h3>
+                  <p className="text-white/50 text-sm">{exp.description}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.7 }}
+              className="mt-10"
+            >
+              <Link href="/about">
+                <span className="inline-flex items-center gap-2 text-[#f2e421] hover:text-white transition-colors font-medium text-lg">
+                  Learn More About Us
+                  <ArrowRight className="w-5 h-5" />
+                </span>
+              </Link>
             </motion.div>
-          ))}
+          </div>
+
+          {/* Right - Image Stack */}
+          <div className="relative hidden lg:block">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              {/* Main Image */}
+              <div className="relative w-full h-[500px] rounded-3xl overflow-hidden">
+                <Image
+                  src="/images/Gallery/Hanuman%20World%20Phuket%201%20Zipline.JPG"
+                  alt="Zipline Adventure"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/50 to-transparent" />
+              </div>
+
+              {/* Floating Stats Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="absolute -bottom-8 -left-8 p-6 bg-[#f2e421] rounded-2xl shadow-2xl"
+              >
+                <div className="text-black">
+                  <div className="text-5xl font-[family-name:var(--font-trade-winds)] font-bold">15+</div>
+                  <div className="text-sm font-medium mt-1">Years of Experience</div>
+                </div>
+              </motion.div>
+
+              {/* Secondary Image */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="absolute -top-8 -right-8 w-48 h-48 rounded-2xl overflow-hidden border-4 border-[#1a1a1a]"
+              >
+                <Image
+                  src="/images/Gallery/Hanuman%20World%20Phuket%205%20Zipline.JPG"
+                  alt="Adventure"
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
-      </Container>
-    </Section>
+      </div>
+    </section>
   );
 }

@@ -7,22 +7,29 @@ import { Container } from '@/components/ui';
 
 const footerLinks = {
   packages: [
-    { name: 'Combined Zipline', href: '/packages/combined' },
-    { name: 'Zipline Adventure', href: '/packages/zipline' },
-    { name: 'Roller Zipline', href: '/packages/roller' },
-    { name: 'Skywalk', href: '/packages/skywalk' },
-    { name: 'Slingshot', href: '/packages/slingshot' },
-    { name: 'Luge', href: '/packages/luge' },
+    { name: 'FH1 - Premium', href: '/packages/fh1' },
+    { name: 'FH2 - Mid-Range', href: '/packages/fh2' },
+    { name: 'FH3 + Canopy', href: '/packages/fh3-canopy' },
+    { name: 'Canopy Walk', href: '/packages/canopy' },
+    { name: 'SD1: FH3 + Hanuman World', href: '/packages/sd1-fh3-hanuman-world' },
+    { name: 'SD2: FH3 + Three Monkeys', href: '/packages/sd2-fh3-three-monkeys' },
+    { name: 'SD3: FH3 + ATV', href: '/packages/sd3-fh3-atv' },
+    { name: 'SD4: FH3 + Elephant', href: '/packages/sd4-fh3-elephant' },
+    { name: 'SD5: FH3 + ATV + Elephant', href: '/packages/sd5-fh3-atv-elephant' },
+    { name: 'VVIP Transfer', href: '/packages/transfer-vvip-denza' },
   ],
   company: [
     { name: 'About Us', href: '/about' },
     { name: 'Blog', href: '/blog' },
     { name: 'FAQ', href: '/faq' },
     { name: 'Contact', href: '/contact' },
+    { name: 'Safety Information', href: '/safety' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
+    { name: 'Terms & Conditions', href: '/terms' },
+    { name: 'Refund Policy', href: '/refund' },
+    { name: 'Cookie Policy', href: '/cookies' },
   ],
 };
 
@@ -34,23 +41,21 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#0f0f0f]">
-      {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#f2e421] to-transparent" />
+    <footer className="relative overflow-hidden bg-[#f2e421]">
       
       {/* Main Footer Content */}
       <Container className="relative z-10">
         {/* CTA Section */}
-        <div className="py-12 border-b border-white/10">
+        <div className="py-12 border-b border-black/10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
-              <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-trade-winds)] text-white mb-2">
+              <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-trade-winds)] text-black mb-2">
                 Ready for an Adventure?
               </h3>
-              <p className="text-white/60">Book your zipline experience today and soar through the rainforest!</p>
+              <p className="text-black/60">Book your zipline experience today and soar through the rainforest!</p>
             </div>
             <Link href="/booking">
-              <button className="flex items-center gap-2 px-8 py-4 bg-[#f2e421] hover:bg-[#d4c91e] text-black font-[family-name:var(--font-trade-winds)] text-lg rounded-full transition-all shadow-lg hover:shadow-[#f2e421]/20 group">
+              <button className="flex items-center gap-2 px-8 py-4 bg-black hover:bg-[#1a1a1a] text-[#f2e421] font-[family-name:var(--font-trade-winds)] text-lg rounded-full transition-all shadow-lg group">
                 Book Now
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
@@ -64,14 +69,14 @@ export function Footer() {
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-6">
               <Image
-                src="/logo/LOGO-NS.png"
+                src="/images/LOGO-NS.png"
                 alt="Flying Hanuman"
-                width={160}
-                height={60}
-                className="h-14 w-auto"
+                width={270}
+                height={108}
+                className="h-[108px] w-auto"
               />
             </Link>
-            <p className="text-white/60 mb-6 text-sm leading-relaxed">
+            <p className="text-black/60 mb-6 text-sm leading-relaxed">
               Experience the thrill of flying through Phuket&apos;s ancient rainforest canopy. 
               Thailand&apos;s premier zipline adventure awaits you.
             </p>
@@ -82,10 +87,10 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#f2e421] hover:border-[#f2e421] hover:text-black transition-all group"
+                  className="w-10 h-10 rounded-full bg-black/10 border border-black/20 flex items-center justify-center hover:bg-black hover:border-black transition-all group"
                   aria-label={social.name}
                 >
-                  <social.icon className="w-5 h-5 text-white group-hover:text-black" />
+                  <social.icon className="w-5 h-5 text-black group-hover:text-[#f2e421]" />
                 </a>
               ))}
             </div>
@@ -93,7 +98,7 @@ export function Footer() {
 
           {/* Packages Column */}
           <div>
-            <h4 className="text-sm font-semibold text-[#f2e421] uppercase tracking-wider mb-4">
+            <h4 className="text-sm font-semibold text-black uppercase tracking-wider mb-4">
               Our Packages
             </h4>
             <ul className="space-y-3">
@@ -101,7 +106,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-white/60 hover:text-[#f2e421] transition-colors text-sm"
+                    className="text-black/60 hover:text-black transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -112,7 +117,7 @@ export function Footer() {
 
           {/* Company Column */}
           <div>
-            <h4 className="text-sm font-semibold text-[#f2e421] uppercase tracking-wider mb-4">
+            <h4 className="text-sm font-semibold text-black uppercase tracking-wider mb-4">
               Company
             </h4>
             <ul className="space-y-3">
@@ -120,14 +125,14 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-white/60 hover:text-[#f2e421] transition-colors text-sm"
+                    className="text-black/60 hover:text-black transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
-            <h4 className="text-sm font-semibold text-[#f2e421] uppercase tracking-wider mb-4 mt-6">
+            <h4 className="text-sm font-semibold text-black uppercase tracking-wider mb-4 mt-6">
               Legal
             </h4>
             <ul className="space-y-3">
@@ -135,7 +140,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-white/60 hover:text-[#f2e421] transition-colors text-sm"
+                    className="text-black/60 hover:text-black transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -146,40 +151,40 @@ export function Footer() {
 
           {/* Contact Column */}
           <div>
-            <h4 className="text-sm font-semibold text-[#f2e421] uppercase tracking-wider mb-4">
+            <h4 className="text-sm font-semibold text-black uppercase tracking-wider mb-4">
               Contact Us
             </h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#f2e421]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <MapPin className="w-4 h-4 text-[#f2e421]" />
+                <div className="w-8 h-8 rounded-lg bg-black/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <MapPin className="w-4 h-4 text-black" />
                 </div>
-                <span className="text-white/60 text-sm">
+                <span className="text-black/60 text-sm">
                   89/16 Moo 6, Soi Namtok Kathu,<br />
                   Kathu, Phuket 83120, Thailand
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#f2e421]/10 flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-4 h-4 text-[#f2e421]" />
+                <div className="w-8 h-8 rounded-lg bg-black/10 flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-4 h-4 text-black" />
                 </div>
-                <a href="tel:+6676323264" className="text-white/60 hover:text-[#f2e421] transition-colors text-sm">
+                <a href="tel:+6676323264" className="text-black/60 hover:text-black transition-colors text-sm">
                   +66 76 323 264
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#f2e421]/10 flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-4 h-4 text-[#f2e421]" />
+                <div className="w-8 h-8 rounded-lg bg-black/10 flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-4 h-4 text-black" />
                 </div>
-                <a href="mailto:info@flyinghanuman.com" className="text-white/60 hover:text-[#f2e421] transition-colors text-sm">
+                <a href="mailto:info@flyinghanuman.com" className="text-black/60 hover:text-black transition-colors text-sm">
                   info@flyinghanuman.com
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#f2e421]/10 flex items-center justify-center flex-shrink-0">
-                  <Clock className="w-4 h-4 text-[#f2e421]" />
+                <div className="w-8 h-8 rounded-lg bg-black/10 flex items-center justify-center flex-shrink-0">
+                  <Clock className="w-4 h-4 text-black" />
                 </div>
-                <span className="text-white/60 text-sm">
+                <span className="text-black/60 text-sm">
                   Open Daily: 8:00 AM - 6:00 PM
                 </span>
               </li>
@@ -188,21 +193,23 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/40 text-sm">
-            &copy; {new Date().getFullYear()} Flying Hanuman. All rights reserved.
-          </p>
-          <p className="text-white/40 text-sm">
-            Powered by{' '}
-            <a 
-              href="https://onebooking.co" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-[#f2e421] hover:underline"
-            >
-              OneBooking
-            </a>
-          </p>
+        <div className="py-6 border-t border-black/10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-black/50 text-sm text-center md:text-left">
+              &copy; {new Date().getFullYear()} SKY TREK ADVENTURES Co., Ltd. (Flying Hanuman). All rights reserved.
+            </p>
+            <p className="text-black/50 text-sm text-center md:text-right">
+              Online payments processed by{' '}
+              <a 
+                href="https://onebooking.co" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-black font-medium hover:underline"
+              >
+                Chamnanthang Co., Ltd. (ONEBOOKING)
+              </a>
+            </p>
+          </div>
         </div>
       </Container>
     </footer>
