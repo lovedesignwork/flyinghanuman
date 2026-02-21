@@ -20,66 +20,7 @@ export function FeaturedPackages() {
   const duplicatedPackages = [...mainPackages, ...mainPackages];
 
   return (
-    <section id="packages" className="relative py-24 bg-[#f2e421] overflow-visible" ref={containerRef}>
-      {/* Top Tear Divider - Overlaps into section above */}
-      <div className="absolute -top-12 left-0 right-0 h-24 z-20 pointer-events-none">
-        <svg 
-          viewBox="0 0 1200 120" 
-          preserveAspectRatio="none" 
-          className="absolute bottom-0 w-full h-full"
-        >
-          {/* Main tear shape */}
-          <path 
-            d="M0,120 L0,80 Q50,95 100,75 T200,85 T300,70 T400,80 T500,65 T600,75 T700,60 T800,70 T900,55 T1000,65 T1100,50 T1200,60 L1200,120 Z" 
-            fill="#f2e421"
-          />
-          {/* Rough edge detail */}
-          <path 
-            d="M0,80 Q25,85 50,78 T100,82 T150,75 T200,85 T250,78 T300,70 T350,76 T400,80 T450,72 T500,65 T550,70 T600,75 T650,68 T700,60 T750,66 T800,70 T850,62 T900,55 T950,60 T1000,65 T1050,58 T1100,50 T1150,55 T1200,60" 
-            fill="none" 
-            stroke="#f2e421" 
-            strokeWidth="3"
-          />
-        </svg>
-        {/* Grunge texture overlay */}
-        <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          }}
-        />
-      </div>
-
-      {/* Bottom Tear Divider - Overlaps into section below */}
-      <div className="absolute -bottom-12 left-0 right-0 h-24 z-20 pointer-events-none">
-        <svg 
-          viewBox="0 0 1200 120" 
-          preserveAspectRatio="none" 
-          className="absolute top-0 w-full h-full"
-          style={{ transform: 'rotate(180deg)' }}
-        >
-          {/* Main tear shape */}
-          <path 
-            d="M0,120 L0,80 Q50,95 100,75 T200,85 T300,70 T400,80 T500,65 T600,75 T700,60 T800,70 T900,55 T1000,65 T1100,50 T1200,60 L1200,120 Z" 
-            fill="#f2e421"
-          />
-          {/* Rough edge detail */}
-          <path 
-            d="M0,80 Q25,85 50,78 T100,82 T150,75 T200,85 T250,78 T300,70 T350,76 T400,80 T450,72 T500,65 T550,70 T600,75 T650,68 T700,60 T750,66 T800,70 T850,62 T900,55 T950,60 T1000,65 T1050,58 T1100,50 T1150,55 T1200,60" 
-            fill="none" 
-            stroke="#f2e421" 
-            strokeWidth="3"
-          />
-        </svg>
-        {/* Grunge texture overlay */}
-        <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          }}
-        />
-      </div>
-
+    <section id="packages" className="relative py-24 bg-[#f2e421]" ref={containerRef}>
       {/* CSS Animation Keyframes */}
       <style jsx>{`
         @keyframes scroll {

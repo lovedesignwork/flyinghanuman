@@ -7,47 +7,7 @@ import { ArrowRight, Phone, MessageCircle } from 'lucide-react';
 
 export function CTABanner() {
   return (
-    <section className="relative py-24 overflow-visible">
-      {/* Top Tear Divider - Dark tear overlapping from above */}
-      <div className="absolute -top-16 left-0 right-0 h-32 z-20 pointer-events-none">
-        <svg 
-          viewBox="0 0 1200 120" 
-          preserveAspectRatio="none" 
-          className="absolute bottom-0 w-full h-full"
-        >
-          <path 
-            d="M0,120 L0,60 C100,80 200,40 300,55 C400,70 500,35 600,50 C700,65 800,30 900,45 C1000,60 1100,25 1200,40 L1200,120 Z" 
-            fill="#0f0f0f"
-          />
-          <path 
-            d="M0,60 Q60,75 120,55 T240,65 T360,50 T480,60 T600,45 T720,55 T840,40 T960,50 T1080,35 T1200,45" 
-            fill="none" 
-            stroke="#1a1a1a" 
-            strokeWidth="2"
-          />
-        </svg>
-      </div>
-
-      {/* Bottom Tear Divider - Dark tear overlapping into below */}
-      <div className="absolute -bottom-16 left-0 right-0 h-32 z-20 pointer-events-none">
-        <svg 
-          viewBox="0 0 1200 120" 
-          preserveAspectRatio="none" 
-          className="absolute top-0 w-full h-full rotate-180"
-        >
-          <path 
-            d="M0,120 L0,60 C100,80 200,40 300,55 C400,70 500,35 600,50 C700,65 800,30 900,45 C1000,60 1100,25 1200,40 L1200,120 Z" 
-            fill="#0f0f0f"
-          />
-          <path 
-            d="M0,60 Q60,75 120,55 T240,65 T360,50 T480,60 T600,45 T720,55 T840,40 T960,50 T1080,35 T1200,45" 
-            fill="none" 
-            stroke="#1a1a1a" 
-            strokeWidth="2"
-          />
-        </svg>
-      </div>
-
+    <section className="relative py-24">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
