@@ -23,7 +23,6 @@ interface BookingData {
   activity_date: string;
   time_slot: string;
   guest_count: number;
-  non_playing_guests: number;
   total_amount: number;
   currency: string;
   packages: {
@@ -35,12 +34,26 @@ interface BookingData {
     last_name: string;
     email: string;
     phone: string;
-  };
+  } | {
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+  }[];
   booking_addons: BookingAddon[];
   booking_transport: {
-    type: string;
-    pickup_location: string;
-  } | null;
+    transport_type: string;
+    hotel_name: string | null;
+    room_number: string | null;
+    non_players: number;
+    private_passengers: number;
+  } | {
+    transport_type: string;
+    hotel_name: string | null;
+    room_number: string | null;
+    non_players: number;
+    private_passengers: number;
+  }[] | null;
 }
 
 function SuccessContent() {
@@ -123,6 +136,26 @@ function SuccessContent() {
     );
   }
 
+  // Helper to get customer data (handle array or object)
+  const getCustomer = () => {
+    if (!booking?.booking_customers) return null;
+    return Array.isArray(booking.booking_customers) 
+      ? booking.booking_customers[0] 
+      : booking.booking_customers;
+  };
+
+  // Helper to get transport data (handle array or object)
+  const getTransport = () => {
+    if (!booking?.booking_transport) return null;
+    return Array.isArray(booking.booking_transport) 
+      ? booking.booking_transport[0] 
+      : booking.booking_transport;
+  };
+
+  const customer = getCustomer();
+  const transport = getTransport();
+  const hasTransfer = transport && transport.transport_type !== 'self_arrange';
+
   return (
     <main className="min-h-screen bg-[#1a1a1a]">
       <div className="max-w-2xl mx-auto px-4 py-8 md:py-12">
@@ -145,19 +178,25 @@ function SuccessContent() {
             <h1 className="text-xl md:text-2xl font-bold text-white mb-1 font-[family-name:var(--font-trade-winds)]">
               BOOKING CONFIRMED!
             </h1>
-            <p className="text-white/80 text-sm">Thank you for booking with Flying Hanuman</p>
+            {customer ? (
+              <p className="text-white/80 text-sm">
+                Thank You <span className="font-semibold text-[#f2e421]">{customer.first_name}</span> for your booking with Flying Hanuman!
+              </p>
+            ) : (
+              <p className="text-white/80 text-sm">Thank you for booking with Flying Hanuman!</p>
+            )}
           </div>
 
           <div className="p-5">
-            {/* Booking Reference */}
+            {/* Booking Reference & Email Confirmation */}
             <div className="bg-[#f2e421]/10 border border-[#f2e421]/20 rounded-xl p-4 mb-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs text-slate-500 uppercase tracking-wide">Booking Reference</span>
                 <span className="text-lg font-bold text-[#1a1a1a]">{bookingRef || 'Loading...'}</span>
               </div>
-              {booking?.booking_customers?.email && (
+              {customer?.email && (
                 <p className="text-xs text-slate-600">
-                  A confirmation email has been sent to <span className="font-semibold text-[#1a1a1a]">{booking.booking_customers.email}</span> with all the booking details.
+                  We&apos;ve sent you a confirmation email to <span className="font-semibold text-[#1a1a1a]">{customer.email}</span> with details below.
                 </p>
               )}
             </div>
@@ -214,12 +253,12 @@ function SuccessContent() {
                     </div>
 
                     {/* Non-Playing Guests */}
-                    {booking.non_playing_guests > 0 && (
+                    {transport && transport.non_players > 0 && (
                       <div className="flex items-center gap-2 p-3 bg-slate-50 rounded-lg">
                         <UserMinus className="w-4 h-4 text-[#1a1a1a]" />
                         <div>
                           <p className="text-[10px] text-slate-500 uppercase">Non-Players</p>
-                          <p className="text-xs font-medium text-slate-800">{booking.non_playing_guests} person(s)</p>
+                          <p className="text-xs font-medium text-slate-800">{transport.non_players} person(s)</p>
                         </div>
                       </div>
                     )}
@@ -246,15 +285,22 @@ function SuccessContent() {
                 )}
 
                 {/* Transport */}
-                {booking.booking_transport && booking.booking_transport.type !== 'self' && (
+                {transport && transport.transport_type !== 'self_arrange' && (
                   <div className="mb-4">
                     <h3 className="text-sm font-semibold text-slate-700 mb-2 uppercase tracking-wide">Transport</h3>
-                    <div className="flex items-center gap-2 p-3 bg-blue-50 border border-blue-100 rounded-lg">
-                      <Car className="w-4 h-4 text-blue-600" />
+                    <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-100 rounded-lg">
+                      <Car className="w-4 h-4 text-blue-600 mt-0.5" />
                       <div>
-                        <p className="text-xs font-medium text-blue-800 capitalize">{booking.booking_transport.type} Transfer</p>
-                        {booking.booking_transport.pickup_location && (
-                          <p className="text-[10px] text-blue-600">{booking.booking_transport.pickup_location}</p>
+                        <p className="text-xs font-medium text-blue-800 capitalize">
+                          {transport.transport_type === 'hotel_pickup' ? 'Hotel Pickup' : 
+                           transport.transport_type === 'private' ? 'Private Transfer' : 
+                           transport.transport_type} Transfer
+                        </p>
+                        {transport.hotel_name && (
+                          <p className="text-[10px] text-blue-600">
+                            {transport.hotel_name}
+                            {transport.room_number && `, Room ${transport.room_number}`}
+                          </p>
                         )}
                       </div>
                     </div>
@@ -269,14 +315,21 @@ function SuccessContent() {
               </>
             )}
 
-            {/* Important Information - Compact */}
+            {/* Important Information - Dynamic based on transfer */}
             <div className="bg-amber-50 border border-amber-100 rounded-lg p-3 mb-4">
               <h3 className="text-xs font-semibold text-amber-800 mb-2 uppercase tracking-wide">Important Information</h3>
               <ul className="space-y-1 text-xs text-amber-700">
-                <li className="flex items-start gap-1.5">
-                  <span className="text-amber-500 mt-0.5">•</span>
-                  Arrive at least 30 minutes before your scheduled time
-                </li>
+                {hasTransfer ? (
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-amber-500 mt-0.5">•</span>
+                    Be at your hotel lobby 15 minutes before the pick-up time
+                  </li>
+                ) : (
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-amber-500 mt-0.5">•</span>
+                    Arrive at least 30 minutes before your scheduled time
+                  </li>
+                )}
                 <li className="flex items-start gap-1.5">
                   <span className="text-amber-500 mt-0.5">•</span>
                   Bring your booking confirmation
