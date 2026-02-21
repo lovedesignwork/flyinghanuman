@@ -480,14 +480,14 @@ function BookingContent() {
                                             disabled={qty <= 0}
                                             className="h-8 w-8 sm:h-8 sm:w-8 rounded border-2 border-black bg-black flex items-center justify-center hover:bg-[#1a1a1a] hover:border-[#1a1a1a] disabled:opacity-30 disabled:cursor-not-allowed"
                                           >
-                                            <Minus className="w-3.5 h-3.5 text-black" />
+                                            <Minus className="w-3.5 h-3.5 text-[#f2e421]" />
                                           </button>
                                           <span className="w-8 sm:w-8 text-center text-lg sm:text-lg font-bold text-black">{qty}</span>
                                           <button
                                             onClick={() => updatePromoAddonQty(promo.id, 1)}
                                             className="h-8 w-8 sm:h-8 sm:w-8 rounded border-2 border-black bg-black flex items-center justify-center hover:bg-[#1a1a1a] hover:border-[#1a1a1a]"
                                           >
-                                            <Plus className="w-3.5 h-3.5 text-black" />
+                                            <Plus className="w-3.5 h-3.5 text-[#f2e421]" />
                                           </button>
                                         </div>
                                       </div>
