@@ -1,0 +1,35 @@
+{
+  "name": "Flying Hanuman",
+  "short_name": "Flying Hanuman",
+  "description": "Phuket's Premier Zipline Adventure - Soar through the rainforest canopy!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#f2e421",
+  "orientation": "portrait-primary",
+  "categories": ["travel", "entertainment", "tourism"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/og-image.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "label": "Flying Hanuman Homepage"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
