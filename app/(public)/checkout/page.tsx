@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { Container, Section } from '@/components/ui';
+import CountryPhoneSelector from '@/components/ui/CountryPhoneSelector';
 import { packages } from '@/lib/data/packages';
 import { formatPrice } from '@/lib/utils';
 import StripeCardProvider from '@/components/checkout/StripeCardProvider';
@@ -448,22 +449,11 @@ function CheckoutContent() {
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-1.5">Phone Number *</label>
                       <div className="flex gap-2">
-                        <div className="relative w-24">
-                          <select
-                            value={countryCode}
-                            onChange={(e) => setCountryCode(e.target.value)}
-                            className="w-full h-11 px-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:border-[#f2e421] appearance-none"
-                          >
-                            <option value="+66">+66</option>
-                            <option value="+1">+1</option>
-                            <option value="+44">+44</option>
-                            <option value="+61">+61</option>
-                            <option value="+81">+81</option>
-                            <option value="+82">+82</option>
-                            <option value="+86">+86</option>
-                          </select>
-                          <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-                        </div>
+                        <CountryPhoneSelector
+                          value={countryCode}
+                          onChange={setCountryCode}
+                          className="w-32"
+                        />
                         <div className="relative flex-grow">
                           <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                           <input
@@ -471,7 +461,7 @@ function CheckoutContent() {
                             value={phone}
                             onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
                             placeholder="812345678"
-                            className="w-full h-11 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:border-[#f2e421]"
+                            className="w-full h-11 pl-10 pr-4 bg-slate-50 border border-slate-400 rounded-xl text-slate-800 text-sm focus:outline-none focus:border-[#f2e421]"
                             required
                           />
                         </div>
