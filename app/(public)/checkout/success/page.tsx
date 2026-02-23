@@ -196,9 +196,9 @@ function SuccessContent() {
               className="bg-white rounded-2xl shadow-lg overflow-hidden mb-4"
             >
               {/* Package Header */}
-              <div className="bg-[#1a1a1a] px-5 py-4">
-                <p className="text-[#f2e421] text-xs font-medium uppercase tracking-wider mb-1">Package</p>
-                <h2 className="text-white text-lg font-bold">{booking.packages?.name || 'Adventure Package'}</h2>
+              <div className="bg-[#f2e421] px-5 py-4">
+                <p className="text-black/60 text-xs font-medium uppercase tracking-wider mb-1">Package</p>
+                <h2 className="text-black text-lg font-bold">{booking.packages?.name || 'Adventure Package'}</h2>
               </div>
 
               {/* Details Grid */}
@@ -342,7 +342,7 @@ function SuccessContent() {
                 transition={{ delay: 0.15 }}
                 className="relative rounded-2xl p-[2px] mb-4 overflow-hidden"
                 style={{
-                  background: 'linear-gradient(90deg, #10b981, #14b8a6, #06b6d4, #10b981)',
+                  background: 'linear-gradient(90deg, #f2e421, #f59e0b, #ea580c, #f2e421)',
                   backgroundSize: '300% 100%',
                   animation: 'gradient-shift 3s ease infinite',
                 }}
@@ -355,15 +355,15 @@ function SuccessContent() {
                 `}</style>
                 <div className="bg-[#1a1a1a] rounded-[14px] p-5">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/30">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#f2e421] to-orange-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-yellow-500/30">
                       <Mail className="w-6 h-6 text-white" />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-white font-bold text-base mb-2">What&apos;s Next?</h3>
                       <p className="text-slate-300 text-sm leading-relaxed">
-                        A confirmation email with your <span className="text-emerald-400 font-semibold">exact pick-up time</span> at{' '}
+                        A confirmation email with your <span className="text-[#f2e421] font-semibold">exact pick-up time</span> at{' '}
                         <span className="text-white font-semibold">{transport.hotel_name}</span> will be sent to{' '}
-                        <span className="text-teal-400 font-medium">{customer.email}</span>.
+                        <span className="text-orange-400 font-medium">{customer.email}</span>.
                       </p>
                       <p className="text-slate-400 text-xs mt-2">
                         Please check your inbox (and spam folder) for this important information.
