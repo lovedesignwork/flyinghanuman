@@ -23,10 +23,12 @@ interface BookingData {
   time_slot: string;
   guest_count: number;
   total_amount: number;
+  discount_amount?: number;
   currency: string;
   packages: {
     name: string;
     slug: string;
+    price: number;
   };
   booking_customers: {
     first_name: string;
@@ -46,12 +48,14 @@ interface BookingData {
     room_number: string | null;
     non_players: number;
     private_passengers: number;
+    transport_cost?: number;
   } | {
     transport_type: string;
     hotel_name: string | null;
     room_number: string | null;
     non_players: number;
     private_passengers: number;
+    transport_cost?: number;
   }[] | null;
 }
 
@@ -265,10 +269,41 @@ function SuccessContent() {
                   </div>
                 )}
 
-                {/* Total */}
-                <div className="border-t border-slate-100 pt-4 mt-4 flex items-center justify-between">
-                  <span className="text-slate-600 font-medium">Total Paid</span>
-                  <span className="text-2xl font-bold text-[#1a1a1a]">{formatCurrency(booking.total_amount)}</span>
+                {/* Total with Discount */}
+                <div className="border-t border-slate-100 pt-4 mt-4">
+                  {booking.discount_amount && booking.discount_amount > 0 ? (
+                    <>
+                      {/* Original Price */}
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-slate-500 text-sm">Original Price</span>
+                        <span className="text-slate-500 text-sm line-through">
+                          {formatCurrency(booking.total_amount + booking.discount_amount)}
+                        </span>
+                      </div>
+                      {/* Discount */}
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-green-600 text-sm font-medium flex items-center gap-1">
+                          <span className="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full">
+                            {Math.round((booking.discount_amount / (booking.total_amount + booking.discount_amount)) * 100)}% OFF
+                          </span>
+                          Discount
+                        </span>
+                        <span className="text-green-600 text-sm font-semibold">
+                          -{formatCurrency(booking.discount_amount)}
+                        </span>
+                      </div>
+                      {/* Final Total */}
+                      <div className="flex items-center justify-between pt-2 border-t border-dashed border-slate-200">
+                        <span className="text-slate-600 font-medium">Total Paid</span>
+                        <span className="text-2xl font-bold text-[#1a1a1a]">{formatCurrency(booking.total_amount)}</span>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-600 font-medium">Total Paid</span>
+                      <span className="text-2xl font-bold text-[#1a1a1a]">{formatCurrency(booking.total_amount)}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
