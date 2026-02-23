@@ -138,12 +138,12 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
     <div className="min-h-screen bg-slate-100">
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 bg-[#1a1a1a] transform transition-all duration-300 ease-in-out ${
+        className={`fixed inset-y-0 left-0 z-50 bg-[#f2e421] transform transition-all duration-300 ease-in-out ${
           sidebarCollapsed ? 'w-20' : 'w-64'
         } ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
       >
         {/* Logo */}
-        <div className="flex items-center justify-center h-20 px-3 border-b border-white/10 relative">
+        <div className="flex items-center justify-center h-20 px-3 border-b border-black/10 relative">
           <Link href="/admin" className="flex items-center justify-center w-full">
             {sidebarCollapsed ? (
               <Image
@@ -167,7 +167,7 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden text-white/70 hover:text-white absolute right-3 top-1/2 -translate-y-1/2"
+            className="lg:hidden text-black/70 hover:text-black absolute right-3 top-1/2 -translate-y-1/2"
           >
             <X className="w-6 h-6" />
           </button>
@@ -188,8 +188,8 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
                   sidebarCollapsed ? 'justify-center px-2' : ''
                 } ${
                   isActive
-                    ? 'bg-white/20 text-white'
-                    : 'text-white/70 hover:bg-white/10 hover:text-white'
+                    ? 'bg-black text-[#f2e421]'
+                    : 'text-black/80 hover:bg-black/10 hover:text-black'
                 }`}
                 onClick={() => setSidebarOpen(false)}
                 title={sidebarCollapsed ? item.label : undefined}
@@ -202,10 +202,10 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
         </nav>
 
         {/* Collapse Toggle Button - Desktop only */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-white/10">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-black/10">
           <button
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className={`hidden lg:flex w-full items-center gap-3 px-4 py-3 text-white/70 hover:bg-white/10 hover:text-white rounded-xl transition-colors ${
+            className={`hidden lg:flex w-full items-center gap-3 px-4 py-3 text-black/70 hover:bg-black/10 hover:text-black rounded-xl transition-colors ${
               sidebarCollapsed ? 'justify-center px-2' : ''
             }`}
             title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
