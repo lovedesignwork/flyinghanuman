@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ChevronDown, Search } from 'lucide-react';
 
 interface Country {
@@ -96,8 +97,11 @@ export default function CountryPhoneSelector({
 }: CountryPhoneSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   const selectedCountry = countries.find(c => c.dial === value) || countries[0];
 
@@ -108,8 +112,17 @@ export default function CountryPhoneSelector({
   );
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current && 
+        !dropdownRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
         setSearch('');
       }
@@ -125,15 +138,81 @@ export default function CountryPhoneSelector({
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (isOpen && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY + 4,
+        left: rect.left + window.scrollX,
+      });
+    }
+  }, [isOpen]);
+
   const handleSelect = (country: Country) => {
     onChange(country.dial);
     setIsOpen(false);
     setSearch('');
   };
 
+  const dropdown = isOpen && mounted ? createPortal(
+    <div 
+      ref={dropdownRef}
+      className="fixed z-[9999] w-72 bg-white border border-slate-200 rounded-xl shadow-2xl overflow-hidden"
+      style={{ 
+        top: dropdownPosition.top,
+        left: dropdownPosition.left,
+      }}
+    >
+      <div className="p-2 border-b border-slate-100">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <input
+            ref={searchInputRef}
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search country..."
+            className="w-full h-9 pl-9 pr-3 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-800 focus:outline-none focus:border-[#f2e421]"
+          />
+        </div>
+      </div>
+      
+      <div className="max-h-72 overflow-y-auto">
+        {filteredCountries.length === 0 ? (
+          <div className="px-4 py-3 text-sm text-slate-500 text-center">
+            No countries found
+          </div>
+        ) : (
+          filteredCountries.map((country) => (
+            <button
+              key={country.code}
+              type="button"
+              onClick={() => handleSelect(country)}
+              className={`w-full px-4 py-2.5 flex items-center gap-3 hover:bg-slate-50 transition-colors text-left ${
+                country.dial === value ? 'bg-[#f2e421]/10' : ''
+              }`}
+            >
+              <img 
+                src={getFlagUrl(country.code)} 
+                alt={country.name}
+                className="w-6 h-4 object-cover rounded-sm"
+              />
+              <div className="flex-grow min-w-0">
+                <span className="text-sm text-slate-800 truncate block">{country.name}</span>
+              </div>
+              <span className="text-sm text-slate-500 font-medium">{country.dial}</span>
+            </button>
+          ))
+        )}
+      </div>
+    </div>,
+    document.body
+  ) : null;
+
   return (
-    <div className={`relative ${className}`} ref={dropdownRef}>
+    <div className={`relative ${className}`}>
       <button
+        ref={buttonRef}
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="w-full h-11 px-3 bg-slate-50 border border-slate-400 rounded-xl text-slate-800 text-sm focus:outline-none focus:border-[#f2e421] flex items-center justify-between gap-1"
@@ -148,53 +227,7 @@ export default function CountryPhoneSelector({
         </span>
         <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
-
-      {isOpen && (
-        <div className="absolute z-50 w-72 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden">
-          <div className="p-2 border-b border-slate-100">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input
-                ref={searchInputRef}
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search country..."
-                className="w-full h-9 pl-9 pr-3 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-800 focus:outline-none focus:border-[#f2e421]"
-              />
-            </div>
-          </div>
-          
-          <div className="max-h-64 overflow-y-auto">
-            {filteredCountries.length === 0 ? (
-              <div className="px-4 py-3 text-sm text-slate-500 text-center">
-                No countries found
-              </div>
-            ) : (
-              filteredCountries.map((country) => (
-                <button
-                  key={country.code}
-                  type="button"
-                  onClick={() => handleSelect(country)}
-                  className={`w-full px-4 py-2.5 flex items-center gap-3 hover:bg-slate-50 transition-colors text-left ${
-                    country.dial === value ? 'bg-[#f2e421]/10' : ''
-                  }`}
-                >
-                  <img 
-                    src={getFlagUrl(country.code)} 
-                    alt={country.name}
-                    className="w-6 h-4 object-cover rounded-sm"
-                  />
-                  <div className="flex-grow min-w-0">
-                    <span className="text-sm text-slate-800 truncate block">{country.name}</span>
-                  </div>
-                  <span className="text-sm text-slate-500 font-medium">{country.dial}</span>
-                </button>
-              ))
-            )}
-          </div>
-        </div>
-      )}
+      {dropdown}
     </div>
   );
 }
