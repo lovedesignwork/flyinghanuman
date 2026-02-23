@@ -7,78 +7,81 @@ interface Country {
   code: string;
   name: string;
   dial: string;
-  flag: string;
 }
 
 const countries: Country[] = [
-  { code: 'TH', name: 'Thailand', dial: '+66', flag: '🇹🇭' },
-  { code: 'US', name: 'United States', dial: '+1', flag: '🇺🇸' },
-  { code: 'GB', name: 'United Kingdom', dial: '+44', flag: '🇬🇧' },
-  { code: 'AU', name: 'Australia', dial: '+61', flag: '🇦🇺' },
-  { code: 'CN', name: 'China', dial: '+86', flag: '🇨🇳' },
-  { code: 'JP', name: 'Japan', dial: '+81', flag: '🇯🇵' },
-  { code: 'KR', name: 'South Korea', dial: '+82', flag: '🇰🇷' },
-  { code: 'IN', name: 'India', dial: '+91', flag: '🇮🇳' },
-  { code: 'SG', name: 'Singapore', dial: '+65', flag: '🇸🇬' },
-  { code: 'MY', name: 'Malaysia', dial: '+60', flag: '🇲🇾' },
-  { code: 'ID', name: 'Indonesia', dial: '+62', flag: '🇮🇩' },
-  { code: 'PH', name: 'Philippines', dial: '+63', flag: '🇵🇭' },
-  { code: 'VN', name: 'Vietnam', dial: '+84', flag: '🇻🇳' },
-  { code: 'HK', name: 'Hong Kong', dial: '+852', flag: '🇭🇰' },
-  { code: 'TW', name: 'Taiwan', dial: '+886', flag: '🇹🇼' },
-  { code: 'DE', name: 'Germany', dial: '+49', flag: '🇩🇪' },
-  { code: 'FR', name: 'France', dial: '+33', flag: '🇫🇷' },
-  { code: 'IT', name: 'Italy', dial: '+39', flag: '🇮🇹' },
-  { code: 'ES', name: 'Spain', dial: '+34', flag: '🇪🇸' },
-  { code: 'NL', name: 'Netherlands', dial: '+31', flag: '🇳🇱' },
-  { code: 'BE', name: 'Belgium', dial: '+32', flag: '🇧🇪' },
-  { code: 'CH', name: 'Switzerland', dial: '+41', flag: '🇨🇭' },
-  { code: 'AT', name: 'Austria', dial: '+43', flag: '🇦🇹' },
-  { code: 'SE', name: 'Sweden', dial: '+46', flag: '🇸🇪' },
-  { code: 'NO', name: 'Norway', dial: '+47', flag: '🇳🇴' },
-  { code: 'DK', name: 'Denmark', dial: '+45', flag: '🇩🇰' },
-  { code: 'FI', name: 'Finland', dial: '+358', flag: '🇫🇮' },
-  { code: 'PL', name: 'Poland', dial: '+48', flag: '🇵🇱' },
-  { code: 'RU', name: 'Russia', dial: '+7', flag: '🇷🇺' },
-  { code: 'UA', name: 'Ukraine', dial: '+380', flag: '🇺🇦' },
-  { code: 'TR', name: 'Turkey', dial: '+90', flag: '🇹🇷' },
-  { code: 'GR', name: 'Greece', dial: '+30', flag: '🇬🇷' },
-  { code: 'PT', name: 'Portugal', dial: '+351', flag: '🇵🇹' },
-  { code: 'IE', name: 'Ireland', dial: '+353', flag: '🇮🇪' },
-  { code: 'CZ', name: 'Czech Republic', dial: '+420', flag: '🇨🇿' },
-  { code: 'HU', name: 'Hungary', dial: '+36', flag: '🇭🇺' },
-  { code: 'RO', name: 'Romania', dial: '+40', flag: '🇷🇴' },
-  { code: 'CA', name: 'Canada', dial: '+1', flag: '🇨🇦' },
-  { code: 'MX', name: 'Mexico', dial: '+52', flag: '🇲🇽' },
-  { code: 'BR', name: 'Brazil', dial: '+55', flag: '🇧🇷' },
-  { code: 'AR', name: 'Argentina', dial: '+54', flag: '🇦🇷' },
-  { code: 'CL', name: 'Chile', dial: '+56', flag: '🇨🇱' },
-  { code: 'CO', name: 'Colombia', dial: '+57', flag: '🇨🇴' },
-  { code: 'PE', name: 'Peru', dial: '+51', flag: '🇵🇪' },
-  { code: 'ZA', name: 'South Africa', dial: '+27', flag: '🇿🇦' },
-  { code: 'EG', name: 'Egypt', dial: '+20', flag: '🇪🇬' },
-  { code: 'NG', name: 'Nigeria', dial: '+234', flag: '🇳🇬' },
-  { code: 'KE', name: 'Kenya', dial: '+254', flag: '🇰🇪' },
-  { code: 'MA', name: 'Morocco', dial: '+212', flag: '🇲🇦' },
-  { code: 'AE', name: 'United Arab Emirates', dial: '+971', flag: '🇦🇪' },
-  { code: 'SA', name: 'Saudi Arabia', dial: '+966', flag: '🇸🇦' },
-  { code: 'IL', name: 'Israel', dial: '+972', flag: '🇮🇱' },
-  { code: 'QA', name: 'Qatar', dial: '+974', flag: '🇶🇦' },
-  { code: 'KW', name: 'Kuwait', dial: '+965', flag: '🇰🇼' },
-  { code: 'BH', name: 'Bahrain', dial: '+973', flag: '🇧🇭' },
-  { code: 'OM', name: 'Oman', dial: '+968', flag: '🇴🇲' },
-  { code: 'NZ', name: 'New Zealand', dial: '+64', flag: '🇳🇿' },
-  { code: 'PK', name: 'Pakistan', dial: '+92', flag: '🇵🇰' },
-  { code: 'BD', name: 'Bangladesh', dial: '+880', flag: '🇧🇩' },
-  { code: 'LK', name: 'Sri Lanka', dial: '+94', flag: '🇱🇰' },
-  { code: 'NP', name: 'Nepal', dial: '+977', flag: '🇳🇵' },
-  { code: 'MM', name: 'Myanmar', dial: '+95', flag: '🇲🇲' },
-  { code: 'KH', name: 'Cambodia', dial: '+855', flag: '🇰🇭' },
-  { code: 'LA', name: 'Laos', dial: '+856', flag: '🇱🇦' },
-  { code: 'BN', name: 'Brunei', dial: '+673', flag: '🇧🇳' },
-  { code: 'MO', name: 'Macau', dial: '+853', flag: '🇲🇴' },
-  { code: 'MV', name: 'Maldives', dial: '+960', flag: '🇲🇻' },
+  { code: 'TH', name: 'Thailand', dial: '+66' },
+  { code: 'US', name: 'United States', dial: '+1' },
+  { code: 'GB', name: 'United Kingdom', dial: '+44' },
+  { code: 'AU', name: 'Australia', dial: '+61' },
+  { code: 'CN', name: 'China', dial: '+86' },
+  { code: 'JP', name: 'Japan', dial: '+81' },
+  { code: 'KR', name: 'South Korea', dial: '+82' },
+  { code: 'IN', name: 'India', dial: '+91' },
+  { code: 'SG', name: 'Singapore', dial: '+65' },
+  { code: 'MY', name: 'Malaysia', dial: '+60' },
+  { code: 'ID', name: 'Indonesia', dial: '+62' },
+  { code: 'PH', name: 'Philippines', dial: '+63' },
+  { code: 'VN', name: 'Vietnam', dial: '+84' },
+  { code: 'HK', name: 'Hong Kong', dial: '+852' },
+  { code: 'TW', name: 'Taiwan', dial: '+886' },
+  { code: 'DE', name: 'Germany', dial: '+49' },
+  { code: 'FR', name: 'France', dial: '+33' },
+  { code: 'IT', name: 'Italy', dial: '+39' },
+  { code: 'ES', name: 'Spain', dial: '+34' },
+  { code: 'NL', name: 'Netherlands', dial: '+31' },
+  { code: 'BE', name: 'Belgium', dial: '+32' },
+  { code: 'CH', name: 'Switzerland', dial: '+41' },
+  { code: 'AT', name: 'Austria', dial: '+43' },
+  { code: 'SE', name: 'Sweden', dial: '+46' },
+  { code: 'NO', name: 'Norway', dial: '+47' },
+  { code: 'DK', name: 'Denmark', dial: '+45' },
+  { code: 'FI', name: 'Finland', dial: '+358' },
+  { code: 'PL', name: 'Poland', dial: '+48' },
+  { code: 'RU', name: 'Russia', dial: '+7' },
+  { code: 'UA', name: 'Ukraine', dial: '+380' },
+  { code: 'TR', name: 'Turkey', dial: '+90' },
+  { code: 'GR', name: 'Greece', dial: '+30' },
+  { code: 'PT', name: 'Portugal', dial: '+351' },
+  { code: 'IE', name: 'Ireland', dial: '+353' },
+  { code: 'CZ', name: 'Czech Republic', dial: '+420' },
+  { code: 'HU', name: 'Hungary', dial: '+36' },
+  { code: 'RO', name: 'Romania', dial: '+40' },
+  { code: 'CA', name: 'Canada', dial: '+1' },
+  { code: 'MX', name: 'Mexico', dial: '+52' },
+  { code: 'BR', name: 'Brazil', dial: '+55' },
+  { code: 'AR', name: 'Argentina', dial: '+54' },
+  { code: 'CL', name: 'Chile', dial: '+56' },
+  { code: 'CO', name: 'Colombia', dial: '+57' },
+  { code: 'PE', name: 'Peru', dial: '+51' },
+  { code: 'ZA', name: 'South Africa', dial: '+27' },
+  { code: 'EG', name: 'Egypt', dial: '+20' },
+  { code: 'NG', name: 'Nigeria', dial: '+234' },
+  { code: 'KE', name: 'Kenya', dial: '+254' },
+  { code: 'MA', name: 'Morocco', dial: '+212' },
+  { code: 'AE', name: 'United Arab Emirates', dial: '+971' },
+  { code: 'SA', name: 'Saudi Arabia', dial: '+966' },
+  { code: 'IL', name: 'Israel', dial: '+972' },
+  { code: 'QA', name: 'Qatar', dial: '+974' },
+  { code: 'KW', name: 'Kuwait', dial: '+965' },
+  { code: 'BH', name: 'Bahrain', dial: '+973' },
+  { code: 'OM', name: 'Oman', dial: '+968' },
+  { code: 'NZ', name: 'New Zealand', dial: '+64' },
+  { code: 'PK', name: 'Pakistan', dial: '+92' },
+  { code: 'BD', name: 'Bangladesh', dial: '+880' },
+  { code: 'LK', name: 'Sri Lanka', dial: '+94' },
+  { code: 'NP', name: 'Nepal', dial: '+977' },
+  { code: 'MM', name: 'Myanmar', dial: '+95' },
+  { code: 'KH', name: 'Cambodia', dial: '+855' },
+  { code: 'LA', name: 'Laos', dial: '+856' },
+  { code: 'BN', name: 'Brunei', dial: '+673' },
+  { code: 'MO', name: 'Macau', dial: '+853' },
+  { code: 'MV', name: 'Maldives', dial: '+960' },
 ];
+
+function getFlagUrl(countryCode: string): string {
+  return `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
+}
 
 interface CountryPhoneSelectorProps {
   value: string;
@@ -136,7 +139,11 @@ export default function CountryPhoneSelector({
         className="w-full h-11 px-3 bg-slate-50 border border-slate-400 rounded-xl text-slate-800 text-sm focus:outline-none focus:border-[#f2e421] flex items-center justify-between gap-1"
       >
         <span className="flex items-center gap-2">
-          <span className="text-lg">{selectedCountry.flag}</span>
+          <img 
+            src={getFlagUrl(selectedCountry.code)} 
+            alt={selectedCountry.name}
+            className="w-5 h-4 object-cover rounded-sm"
+          />
           <span className="text-sm font-medium">{selectedCountry.dial}</span>
         </span>
         <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
@@ -173,7 +180,11 @@ export default function CountryPhoneSelector({
                     country.dial === value ? 'bg-[#f2e421]/10' : ''
                   }`}
                 >
-                  <span className="text-xl">{country.flag}</span>
+                  <img 
+                    src={getFlagUrl(country.code)} 
+                    alt={country.name}
+                    className="w-6 h-4 object-cover rounded-sm"
+                  />
                   <div className="flex-grow min-w-0">
                     <span className="text-sm text-slate-800 truncate block">{country.name}</span>
                   </div>
