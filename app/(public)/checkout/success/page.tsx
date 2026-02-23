@@ -385,10 +385,6 @@ function SuccessContent() {
               <ul className="text-amber-700 text-sm space-y-1">
                 <li className="flex items-start gap-2">
                   <ChevronRight className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <span>{hasPickup ? 'Be at your hotel lobby 15 minutes before pick-up time' : 'Arrive at least 30 minutes before your scheduled time'}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <ChevronRight className="w-4 h-4 mt-0.5 flex-shrink-0" />
                   <span>Bring your booking confirmation</span>
                 </li>
                 <li className="flex items-start gap-2">
