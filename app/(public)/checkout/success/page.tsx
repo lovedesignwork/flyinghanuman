@@ -119,8 +119,13 @@ function SuccessContent() {
 
   const customer = getCustomer();
   const transport = getTransport();
-  const hasTransfer = transport && transport.transport_type !== 'self_arrange';
   const nonPlayers = transport?.non_players || 0;
+  
+  // Transfer type helpers
+  const isPrivatePickup = transport?.transport_type === 'private';
+  const isFreeSharedPickup = transport?.transport_type === 'hotel_pickup';
+  const isComingDirect = !transport || transport.transport_type === 'self_arrange';
+  const hasPickup = isPrivatePickup || isFreeSharedPickup;
 
   if (error) {
     return (
@@ -227,7 +232,7 @@ function SuccessContent() {
                 </div>
 
                 {/* Non-Players & Transport */}
-                {(nonPlayers > 0 || hasTransfer) && (
+                {(nonPlayers > 0 || transport) && (
                   <div className="border-t border-slate-100 pt-4 space-y-3">
                     {nonPlayers > 0 && (
                       <div className="flex items-center justify-between">
@@ -238,19 +243,40 @@ function SuccessContent() {
                         <span className="text-sm font-semibold text-slate-800">{nonPlayers} person(s)</span>
                       </div>
                     )}
-                    {hasTransfer && (
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <Car className="w-4 h-4 text-slate-400" />
-                          <span className="text-sm text-slate-600">
-                            {transport?.transport_type === 'hotel_pickup' ? 'Hotel Pickup' : 'Private Transfer'}
-                          </span>
-                        </div>
-                        {transport?.hotel_name && (
-                          <span className="text-sm font-semibold text-slate-800">
-                            {transport.hotel_name}{transport.room_number ? ` #${transport.room_number}` : ''}
+                    {/* Transfer Type Display */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Car className="w-4 h-4 text-slate-400" />
+                        <span className="text-sm text-slate-600">Transfer</span>
+                      </div>
+                      <div className="text-right">
+                        {isPrivatePickup && (
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700">
+                            Private
                           </span>
                         )}
+                        {isFreeSharedPickup && (
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                            Free Shared
+                          </span>
+                        )}
+                        {isComingDirect && (
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">
+                            Coming Direct
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {/* Hotel Name - only show if they have pickup */}
+                    {hasPickup && transport?.hotel_name && (
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4 text-slate-400" />
+                          <span className="text-sm text-slate-600">Pickup Location</span>
+                        </div>
+                        <span className="text-sm font-semibold text-slate-800">
+                          {transport.hotel_name}{transport.room_number ? ` #${transport.room_number}` : ''}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -272,32 +298,32 @@ function SuccessContent() {
                 {/* Total with Discount */}
                 <div className="border-t border-slate-100 pt-4 mt-4">
                   {booking.discount_amount && booking.discount_amount > 0 ? (
-                    <>
-                      {/* Original Price */}
-                      <div className="flex items-center justify-between mb-2">
+                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 -mx-1">
+                      {/* Original Price with Strikethrough */}
+                      <div className="flex items-center justify-between mb-3">
                         <span className="text-slate-500 text-sm">Original Price</span>
-                        <span className="text-slate-500 text-sm line-through">
+                        <span className="text-slate-400 text-lg line-through decoration-red-400 decoration-2">
                           {formatCurrency(booking.total_amount + booking.discount_amount)}
                         </span>
                       </div>
-                      {/* Discount */}
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-green-600 text-sm font-medium flex items-center gap-1">
-                          <span className="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full">
+                      {/* Discount Amount with Percentage Badge */}
+                      <div className="flex items-center justify-between mb-3 pb-3 border-b border-green-200/50">
+                        <div className="flex items-center gap-2">
+                          <span className="bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
                             {Math.round((booking.discount_amount / (booking.total_amount + booking.discount_amount)) * 100)}% OFF
                           </span>
-                          Discount
-                        </span>
-                        <span className="text-green-600 text-sm font-semibold">
+                          <span className="text-green-700 text-sm font-medium">You saved!</span>
+                        </div>
+                        <span className="text-green-600 text-lg font-bold">
                           -{formatCurrency(booking.discount_amount)}
                         </span>
                       </div>
-                      {/* Final Total */}
-                      <div className="flex items-center justify-between pt-2 border-t border-dashed border-slate-200">
-                        <span className="text-slate-600 font-medium">Total Paid</span>
+                      {/* Final Total Paid */}
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-700 font-semibold">Total Paid</span>
                         <span className="text-2xl font-bold text-[#1a1a1a]">{formatCurrency(booking.total_amount)}</span>
                       </div>
-                    </>
+                    </div>
                   ) : (
                     <div className="flex items-center justify-between">
                       <span className="text-slate-600 font-medium">Total Paid</span>
@@ -307,6 +333,46 @@ function SuccessContent() {
                 </div>
               </div>
             </motion.div>
+
+            {/* What's Next? Section - Only for customers with pickup */}
+            {hasPickup && customer?.email && transport?.hotel_name && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+                className="relative rounded-2xl p-[2px] mb-4 overflow-hidden"
+                style={{
+                  background: 'linear-gradient(90deg, #10b981, #14b8a6, #06b6d4, #10b981)',
+                  backgroundSize: '300% 100%',
+                  animation: 'gradient-shift 3s ease infinite',
+                }}
+              >
+                <style jsx>{`
+                  @keyframes gradient-shift {
+                    0%, 100% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                  }
+                `}</style>
+                <div className="bg-[#1a1a1a] rounded-[14px] p-5">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/30">
+                      <Mail className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-white font-bold text-base mb-2">What&apos;s Next?</h3>
+                      <p className="text-slate-300 text-sm leading-relaxed">
+                        A confirmation email with your <span className="text-emerald-400 font-semibold">exact pick-up time</span> at{' '}
+                        <span className="text-white font-semibold">{transport.hotel_name}</span> will be sent to{' '}
+                        <span className="text-teal-400 font-medium">{customer.email}</span>.
+                      </p>
+                      <p className="text-slate-400 text-xs mt-2">
+                        Please check your inbox (and spam folder) for this important information.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
 
             {/* Important Info Card */}
             <motion.div
@@ -319,7 +385,7 @@ function SuccessContent() {
               <ul className="text-amber-700 text-sm space-y-1">
                 <li className="flex items-start gap-2">
                   <ChevronRight className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <span>{hasTransfer ? 'Be at your hotel lobby 15 minutes before pick-up time' : 'Arrive at least 30 minutes before your scheduled time'}</span>
+                  <span>{hasPickup ? 'Be at your hotel lobby 15 minutes before pick-up time' : 'Arrive at least 30 minutes before your scheduled time'}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <ChevronRight className="w-4 h-4 mt-0.5 flex-shrink-0" />
