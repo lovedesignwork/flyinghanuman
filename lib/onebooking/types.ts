@@ -51,6 +51,8 @@ export interface BookingSyncPayload {
   addons: AddonData[];
   stripe_payment_intent_id: string | null;
   created_at: string;
+  promo_code?: string | null;
+  notes?: string | null;
 }
 
 export interface SyncSuccessResponse {

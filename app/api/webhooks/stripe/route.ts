@@ -204,6 +204,8 @@ export async function POST(request: NextRequest) {
                 private_passengers: Number(transport?.private_passengers) || 0,
                 transport_cost: Number(transport?.transport_cost) || 0,
                 booking_addons: booking.booking_addons || [],
+                promo_code: booking.promo_code || null,
+                admin_notes: booking.admin_notes || null,
               });
               if (syncResult.success) {
                 console.log(`[OneBooking] Synced ${booking.booking_ref} to central dashboard`);

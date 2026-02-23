@@ -48,6 +48,8 @@ export function buildSyncPayload(
       name: string;
       price: number;
     } | null;
+    promo_code?: string | null;
+    admin_notes?: string | null;
   },
   customer: CustomerData,
   transport: TransportData,
@@ -77,6 +79,8 @@ export function buildSyncPayload(
     addons,
     stripe_payment_intent_id: booking.stripe_payment_intent_id || null,
     created_at: booking.created_at,
+    promo_code: booking.promo_code || null,
+    notes: booking.admin_notes || null,
   };
 }
 
@@ -221,6 +225,8 @@ export async function pushBookingToOneBooking(
       unit_price: number;
       promo_addons?: { name: string } | null;
     }>;
+    promo_code?: string | null;
+    admin_notes?: string | null;
   }
 ): Promise<SyncResponse> {
   // Validate customer email exists before attempting sync
