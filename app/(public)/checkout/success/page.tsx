@@ -398,23 +398,25 @@ function SuccessContent() {
               </ul>
             </motion.div>
 
-            {/* Location Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="bg-white rounded-2xl shadow-lg p-4 mb-4"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-[#f2e421] rounded-xl flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-black" />
+            {/* Location Card - Only show for Coming Direct customers */}
+            {isComingDirect && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="bg-white rounded-2xl shadow-lg p-4 mb-4"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-[#f2e421] rounded-xl flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-6 h-6 text-black" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-800">Flying Hanuman</h3>
+                    <p className="text-sm text-slate-500">89/16 Moo 6, Soi Namtok Kathu, Kathu, Phuket 83120</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-bold text-slate-800">Flying Hanuman</h3>
-                  <p className="text-sm text-slate-500">89/16 Moo 6, Soi Namtok Kathu, Kathu, Phuket 83120</p>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            )}
           </>
         )}
 
